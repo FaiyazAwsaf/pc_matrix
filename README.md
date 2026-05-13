@@ -29,6 +29,6 @@
 
 - **Bangladesh-first:** The only platform with real-time, cross-store PC part comparison for the Bangladesh market.
 - **Universal Specs:** No more confusing or inconsistent specs—users always see apples-to-apples product info.
-- **AI Support:** From part picking to troubleshooting, the AI chat assistant helps everyone build better PCs, faster.
+- **AI Support:** From part picking to troubleshooting, the AI chat assistant helps everyone build better PCs, faster
 
 ---
