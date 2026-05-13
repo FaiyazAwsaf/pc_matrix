@@ -1,162 +1,145 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-slate-900 to-blue-800 text-white flex flex-col">
-    <!-- Hero Section -->
-    <section class="flex-1 flex flex-col justify-center items-center text-center pt-16 pb-16">
-      <div
-        class="max-w-6xl w-full flex flex-col lg:flex-row items-center justify-between px-6 gap-10"
-      >
-        <!-- Image in the middle -->
-        <div class="flex-1 flex justify-center lg:justify-center">
-          <img
-            src="@/assets/Images/Pcbuild.png"
-            alt="PC Build Visual"
-            class="w-full max-w-md rounded-xl shadow-2xl"
-          />
-        </div>
+  <div class="min-h-screen bg-beige-50 text-neutral-900">
+    <section class="relative min-h-[calc(100vh-8rem)] overflow-hidden bg-beige-50 text-neutral-950">
+      <img
+        :src="pcBuildImg"
+        alt="Custom PC build"
+        class="absolute inset-0 h-full w-full object-cover object-right opacity-35"
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-beige-50 via-beige-50/95 to-white/50"></div>
+      <div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-beige-50 to-transparent"></div>
 
-        <!-- Writeup on the right -->
-        <div class="flex-1 text-center lg:text-left">
-          <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-6 drop-shadow-xl">
-            <span class="text-blue-400 animate-pulse">Choose Your Parts. Build Your PC</span>
-          </h1>
-          <p class="max-w-xl text-xl md:text-2xl mb-10 opacity-90 font-medium mx-auto lg:mx-0">
-            Discover, compare &amp; build your perfect PC.<br />
-            <span class="text-blue-200">
-              Bangladesh’s most advanced PC component marketplace &amp; build assistant.
-            </span>
+      <div class="relative mx-auto flex min-h-[calc(100vh-8rem)] max-w-7xl items-center px-4 py-16 sm:px-6 lg:px-8">
+        <div class="max-w-3xl">
+          <p class="mb-5 inline-flex rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-bold text-blue-700 shadow-sm">
+            Bangladesh PC parts, prices, and builds
           </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center">
+          <h1 class="text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl">
+            PC Parser
+          </h1>
+          <p class="mt-6 max-w-2xl text-lg font-medium leading-relaxed text-neutral-700 sm:text-xl">
+            Compare components, inspect used listings, and plan a compatible build without jumping
+            between vendor tabs.
+          </p>
+
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row">
             <router-link
               to="/components"
-              class="px-8 py-4 rounded-full bg-blue-500 hover:bg-blue-600 shadow-lg text-white font-semibold text-lg transition-all duration-300"
+              class="inline-flex items-center justify-center rounded-xl bg-blue-600 px-6 py-3 font-bold text-white shadow-lg shadow-blue-950/30 transition-all hover:bg-blue-500"
             >
               Browse Components
             </router-link>
             <router-link
+              to="/builder"
+              class="inline-flex items-center justify-center rounded-xl border border-beige-300 bg-white/80 px-6 py-3 font-bold text-neutral-900 shadow-sm backdrop-blur transition-all hover:bg-white"
+            >
+              Build a PC
+            </router-link>
+            <router-link
               v-if="!isLoggedIn"
               to="/register"
-              class="px-8 py-4 rounded-full bg-green-500 hover:bg-green-600 shadow-lg text-white font-semibold text-lg transition-all duration-300"
+              class="inline-flex items-center justify-center rounded-xl bg-teal-500 px-6 py-3 font-bold text-neutral-950 shadow-lg shadow-teal-950/20 transition-all hover:bg-teal-400"
             >
-              Get Started
+              Create Account
             </router-link>
+          </div>
+
+          <div class="mt-10 grid max-w-2xl grid-cols-3 divide-x divide-beige-200 rounded-xl border border-beige-200 bg-white/75 text-center shadow-sm backdrop-blur">
+            <div class="px-3 py-4">
+              <p class="text-2xl font-extrabold">8</p>
+              <p class="mt-1 text-xs font-bold uppercase tracking-widest text-blue-700">Categories</p>
+            </div>
+            <div class="px-3 py-4">
+              <p class="text-2xl font-extrabold">Live</p>
+              <p class="mt-1 text-xs font-bold uppercase tracking-widest text-blue-700">Pricing</p>
+            </div>
+            <div class="px-3 py-4">
+              <p class="text-2xl font-extrabold">AI</p>
+              <p class="mt-1 text-xs font-bold uppercase tracking-widest text-blue-700">Builds</p>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="bg-white text-slate-900 py-20 shadow-inner rounded-t-3xl">
-      <div class="max-w-6xl mx-auto px-4">
-        <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-4">
-          Everything For Your PC, One Platform
-        </h2>
-        <p class="text-center text-lg mb-14 text-slate-600">
-          No more tab chaos. All PC parts &amp; deals. One search.
-        </p>
-        <div class="grid md:grid-cols-3 gap-8">
-          <!-- Feature: Price Comparison -->
+    <section class="py-14">
+      <div class="container-main">
+        <div class="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+          <div>
+            <p class="text-sm font-extrabold uppercase tracking-widest text-blue-700">Workflows</p>
+            <h2 class="section-title mt-2">Start with the task, not the tab list</h2>
+          </div>
+          <router-link
+            to="/marketplace"
+            class="inline-flex w-fit items-center rounded-lg border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-bold text-blue-700 transition-colors hover:bg-blue-100"
+          >
+            Open Marketplace
+          </router-link>
+        </div>
+
+        <div class="grid gap-5 md:grid-cols-3">
           <div
-            class="bg-gradient-to-tr from-blue-50 to-blue-100 rounded-2xl shadow-xl p-8 text-center group hover:scale-105 transition-transform duration-300 cursor-pointer"
+            class="card cursor-pointer border-l-4 border-l-blue-600 transition-all hover:-translate-y-1 hover:shadow-lg"
             @click="toggleProductDropdown"
           >
-            <svg
-              class="mx-auto mb-4 w-12 h-12 text-blue-500"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M3 17v-2a4 4 0 014-4h14"
-              />
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M3 21v-2a4 4 0 014-4h14"
-              />
-              <circle cx="7" cy="7" r="4" stroke="currentColor" stroke-width="2" fill="none" />
-            </svg>
-            <h3 class="font-semibold text-xl mb-2">Live Price Comparison</h3>
-            <p class="text-gray-600 group-hover:text-blue-600">
-              Track and compare the latest prices on new &amp; used PC components from all major
-              vendors in Bangladesh.
+            <p class="mb-4 text-sm font-extrabold uppercase tracking-widest text-blue-700">
+              Compare
+            </p>
+            <h3 class="text-xl font-extrabold text-neutral-900">Component price desk</h3>
+            <p class="mt-3 text-neutral-600">
+              Browse CPUs, GPUs, memory, monitors, and core parts with filters built for fast
+              comparison.
             </p>
           </div>
 
-          <!-- Feature: Build Assistant -->
           <div
             @click="router.push('/builder')"
-            class="bg-gradient-to-tr from-green-50 to-green-100 rounded-2xl shadow-xl p-8 text-center group hover:scale-105 transition-transform duration-300 cursor-pointer"
+            class="card cursor-pointer border-l-4 border-l-teal-500 transition-all hover:-translate-y-1 hover:shadow-lg"
           >
-            <svg
-              class="mx-auto mb-4 w-12 h-12 text-green-500"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 4v16m8-8H4"
-              />
-            </svg>
-            <h3 class="font-semibold text-xl mb-2">PC Build Helper</h3>
-            <p class="text-gray-600 group-hover:text-green-600">
-              Tell us your budget &amp; needs. Instantly get compatible, optimized builds for
-              gaming, work, or study powered by AI!
+            <p class="mb-4 text-sm font-extrabold uppercase tracking-widest text-teal-700">
+              Build
+            </p>
+            <h3 class="text-xl font-extrabold text-neutral-900">Compatibility assistant</h3>
+            <p class="mt-3 text-neutral-600">
+              Turn a budget and purpose into a parts list that is easier to evaluate before buying.
             </p>
           </div>
 
-          <!-- Feature: Second-hand Marketplace -->
           <div
             @click="router.push('/marketplace')"
-            class="bg-gradient-to-tr from-purple-50 to-purple-100 rounded-2xl shadow-xl p-8 text-center group hover:scale-105 transition-transform duration-300"
+            class="card cursor-pointer border-l-4 border-l-orange-500 transition-all hover:-translate-y-1 hover:shadow-lg"
           >
-            <svg
-              class="mx-auto mb-4 w-12 h-12 text-purple-500"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" />
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h8" />
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v8" />
-            </svg>
-            <h3 class="font-semibold text-xl mb-2">Trusted Used Market</h3>
-            <p class="text-gray-600 group-hover:text-purple-600">
-              Browse verified, trustworthy second-hand parts buy and sell with confidence, no more
-              marketplace scams.
+            <p class="mb-4 text-sm font-extrabold uppercase tracking-widest text-orange-700">
+              Trade
+            </p>
+            <h3 class="text-xl font-extrabold text-neutral-900">Used parts marketplace</h3>
+            <p class="mt-3 text-neutral-600">
+              Inspect listings, message sellers, and keep second-hand parts alongside retail data.
             </p>
           </div>
         </div>
 
-        <!-- Product Dropdown -->
         <transition name="fade">
           <div
             v-if="showProductDropdown"
-            class="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-10 px-4 sm:px-0 mx-auto max-w-5xl"
+            class="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4"
           >
             <router-link
               v-for="item in productItems"
               :key="item.label"
               :to="getRouteForItem(item.label)"
-              class="flex flex-col items-center bg-gray-50 hover:bg-gray-100 rounded-lg p-5 shadow transition duration-300"
+              class="flex items-center gap-3 rounded-xl border border-beige-200 bg-white p-4 shadow-sm transition-all hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-md"
             >
-              <img :src="item.image" alt="" class="w-16 h-16 object-contain mb-2" />
-              <p class="text-base font-semibold text-gray-800 text-center">{{ item.label }}</p>
+              <img :src="item.image" alt="" class="h-12 w-12 object-contain" />
+              <p class="text-sm font-extrabold text-neutral-800">{{ item.label }}</p>
             </router-link>
           </div>
         </transition>
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="py-6 text-center text-gray-400 bg-slate-900 mt-auto">
-      &copy; {{ new Date().getFullYear() }} PC Parser. Crafted for PC lovers in Bangladesh 🇧🇩
+    <footer class="border-t border-beige-200 bg-white py-6 text-center text-sm font-semibold text-neutral-500">
+      &copy; {{ new Date().getFullYear() }} PC Parser. Built for PC buyers in Bangladesh.
     </footer>
   </div>
 </template>
@@ -164,8 +147,8 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import axios from 'axios'
 
+import pcBuildImg from '@/assets/Images/Pcbuild.png'
 import cpuImg from '@/assets/Images/CPU.png'
 import monitorImg from '@/assets/Images/Monitor.png'
 import motherboardImg from '@/assets/Images/Motherboard.png'
@@ -176,8 +159,6 @@ import powersupplyImg from '@/assets/Images/Powersupply.png'
 import caseImg from '@/assets/Images/Cases.png'
 
 const router = useRouter()
-const message = ref('')
-const loading = ref(true)
 const showProductDropdown = ref(false)
 const user = ref(null)
 
@@ -214,18 +195,6 @@ const getRouteForItem = (label) => {
   return routes[label] || '/'
 }
 
-const fetchMessage = async () => {
-  loading.value = true
-  try {
-    const res = await axios.get('/api/auth/hello/')
-    message.value = res.data.message
-  } catch (error) {
-    message.value = 'Unable to reach backend. Please try again later.'
-  } finally {
-    loading.value = false
-  }
-}
-
 const loadUserData = () => {
   const userData = localStorage.getItem('user')
   if (userData) {
@@ -239,7 +208,6 @@ const loadUserData = () => {
 
 onMounted(() => {
   loadUserData()
-  fetchMessage()
 })
 </script>
 

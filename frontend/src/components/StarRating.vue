@@ -13,7 +13,7 @@
           interactive ? 'cursor-pointer hover:scale-110 transform' : 'cursor-default',
           star <= (interactive ? (hoverRating || modelValue) : modelValue) 
             ? 'text-yellow-400' 
-            : 'text-gray-300'
+            : 'text-beige-300'
         ]"
         :disabled="!interactive"
       >
@@ -24,14 +24,14 @@
     </div>
     
     <!-- Rating text -->
-    <span v-if="showText" class="ml-2 text-sm text-gray-600">
+    <span v-if="showText" class="ml-2 text-sm text-neutral-600">
       <template v-if="modelValue > 0">
         {{ modelValue.toFixed(1) }}
-        <span v-if="count !== undefined" class="text-gray-400">
+        <span v-if="count !== undefined" class="text-neutral-400">
           ({{ count }} {{ count === 1 ? 'review' : 'reviews' }})
         </span>
       </template>
-      <span v-else class="text-gray-400">No reviews</span>
+      <span v-else class="text-neutral-400">No reviews</span>
     </span>
   </div>
 </template>

@@ -1,12 +1,15 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-blue-800 py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-md w-full space-y-8">
-      <div class="bg-white/10 backdrop-blur-md rounded-lg shadow-xl p-8 border border-white/20">
-        <h2 class="text-center text-3xl font-extrabold text-white mb-8">Create Account</h2>
+  <div class="auth-shell">
+    <div class="auth-card">
+        <div class="mb-8 text-center">
+          <p class="page-kicker">Join PC Parser</p>
+          <h2 class="page-title">Create Account</h2>
+          <p class="page-subtitle">List products, message sellers, and keep your build tools in one place.</p>
+        </div>
         <form @submit.prevent="handleRegister" class="space-y-6" enctype="multipart/form-data">
           <div class="grid grid-cols-2 gap-4">
             <div>
-              <label for="first_name" class="block text-sm font-medium text-white mb-2">First Name</label>
+              <label for="first_name" class="form-label">First Name</label>
               <input
                 type="text"
                 id="first_name"
@@ -19,7 +22,7 @@
               <span v-if="errors.first_name" class="text-red-500 text-sm mt-1 block">{{ errors.first_name }}</span>
             </div>
             <div>
-              <label for="last_name" class="block text-sm font-medium text-white mb-2">Last Name</label>
+              <label for="last_name" class="form-label">Last Name</label>
               <input
                 type="text"
                 id="last_name"
@@ -34,7 +37,7 @@
           </div>
 
           <div>
-            <label for="username" class="block text-sm font-medium text-white mb-2">Username</label>
+            <label for="username" class="form-label">Username</label>
             <input
               type="text"
               id="username"
@@ -48,7 +51,7 @@
           </div>
 
           <div>
-            <label for="email" class="block text-sm font-medium text-white mb-2">Email Address</label>
+            <label for="email" class="form-label">Email Address</label>
             <input
               type="email"
               id="email"
@@ -62,7 +65,7 @@
           </div>
 
           <div>
-            <label for="password" class="block text-sm font-medium text-white mb-2">Password</label>
+            <label for="password" class="form-label">Password</label>
             <input
               type="password"
               id="password"
@@ -76,7 +79,7 @@
           </div>
 
           <div>
-            <label for="password_confirm" class="block text-sm font-medium text-white mb-2">Confirm Password</label>
+            <label for="password_confirm" class="form-label">Confirm Password</label>
             <input
               type="password"
               id="password_confirm"
@@ -92,7 +95,7 @@
           <button 
             type="submit" 
             :disabled="loading || !isFormValid"
-            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+            class="success-action w-full px-4 py-3 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {{ loading ? 'Creating Account...' : 'Create Account' }}
           </button>
@@ -106,12 +109,11 @@
         </div>
 
         <div class="mt-6 text-center">
-          <p class="text-sm text-white">
+          <p class="text-sm font-medium text-neutral-600">
             Already have an account? 
-            <router-link to="/login" class="text-white hover:text-blue-500 font-medium">Login</router-link>
+            <router-link to="/login" class="font-bold text-blue-700 hover:text-blue-800">Login</router-link>
           </p>
         </div>
-      </div>
     </div>
   </div>
 </template>
@@ -137,8 +139,8 @@ const form = reactive({
 const errors = reactive({})
 
 const inputClass = (errorField) => [
-  'w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500',
-  errorField ? 'border-red-500' : 'border-gray-300'
+  'form-control',
+  errorField ? 'border-red-500' : ''
 ]
 
 const isFormValid = computed(() => {

@@ -1,19 +1,22 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-blue-800 pt-24 pb-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-md w-full space-y-8">
-      <div class="bg-white/10 backdrop-blur-md rounded-lg shadow-xl p-8 border border-white/20">
-        <h2 class="text-center text-3xl font-extrabold text-white mb-8">Login to PC Parser</h2>
+  <div class="auth-shell">
+    <div class="auth-card">
+      <div class="mb-8 text-center">
+        <p class="page-kicker">Welcome back</p>
+        <h2 class="page-title">Login to PC Parser</h2>
+        <p class="page-subtitle">Access your marketplace, chats, and saved build tools.</p>
+      </div>
         
         <form @submit.prevent="handleLogin" class="space-y-6">
           <div>
-            <label for="email" class="block text-sm font-medium text-white mb-2">Email Address</label>
+            <label for="email" class="form-label">Email Address</label>
             <input
               type="email"
               id="email"
               v-model="form.email"
               :class="[ 
-                'w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500',
-                errors.email ? 'border-red-500' : 'border-gray-300'
+                'form-control',
+                errors.email ? 'border-red-500' : ''
               ]"
               placeholder="Enter your email"
               required
@@ -22,14 +25,14 @@
           </div>
 
           <div>
-            <label for="password" class="block text-sm font-medium text-white mb-2">Password</label>
+            <label for="password" class="form-label">Password</label>
             <input
               type="password"
               id="password"
               v-model="form.password"
               :class="[
-                'w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500',
-                errors.password ? 'border-red-500' : 'border-gray-300'
+                'form-control',
+                errors.password ? 'border-red-500' : ''
               ]"
               placeholder="Enter your password"
               required
@@ -40,7 +43,7 @@
           <button 
             type="submit" 
             :disabled="loading"
-            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+            class="primary-action w-full px-4 py-3 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {{ loading ? 'Logging in...' : 'Login' }}
           </button>
@@ -54,16 +57,15 @@
         </div>
 
         <div class="mt-6 text-center space-y-2">
-          <p class="text-sm text-white">
+          <p class="text-sm font-medium text-neutral-600">
             Don't have an account? 
-            <router-link to="/register" class="text-blue-300 hover:text-blue-400 font-medium">Create Account</router-link>
+            <router-link to="/register" class="font-bold text-blue-700 hover:text-blue-800">Create Account</router-link>
           </p>
-          <p class="text-sm text-white">
+          <p class="text-sm font-medium text-neutral-600">
             Need to verify your email? 
-            <router-link to="/verify-email" class="text-blue-300 hover:text-blue-400 font-medium">Verify Email</router-link>
+            <router-link to="/verify-email" class="font-bold text-blue-700 hover:text-blue-800">Verify Email</router-link>
           </p>
         </div>
-      </div>
     </div>
   </div>
 </template>

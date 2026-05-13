@@ -1,6 +1,6 @@
 <template>
   <div 
-    class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 h-full flex flex-col cursor-pointer"
+    class="surface-panel h-full cursor-pointer overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
     @click="handleCardClick"
   >
     <div class="relative">
@@ -8,10 +8,10 @@
         :src="product.image || defaultImage" 
         :alt="product.name"
         @error="handleImageError"
-        class="w-full h-48 object-contain bg-gray-100 p-4"
+        class="w-full h-48 object-contain bg-beige-50 p-4"
       />
       <span 
-        class="absolute top-2 right-2 bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded-full"
+        class="absolute top-2 right-2 rounded-full bg-blue-600 px-2 py-1 text-xs font-bold text-white"
       >
         {{ product.condition }}
       </span>
@@ -19,15 +19,15 @@
     
     <div class="p-4 flex flex-col flex-1">
       <div class="flex items-center justify-between mb-2">
-        <span class="text-xs text-gray-500">{{ product.category }}</span>
-        <span class="text-xs font-medium text-green-600">{{ product.seller_name || 'Demo Seller' }}</span>
+        <span class="text-xs font-bold uppercase tracking-widest text-neutral-500">{{ product.category }}</span>
+        <span class="text-xs font-bold text-teal-700">{{ product.seller_name || 'Demo Seller' }}</span>
       </div>
       
-      <h3 class="text-lg font-semibold text-gray-800 mb-1 truncate">{{ product.name }}</h3>
+      <h3 class="text-lg font-extrabold text-neutral-900 mb-1 truncate">{{ product.name }}</h3>
       
       <!-- Seller Rating Display -->
       <div class="mb-2">
-        <div class="text-xs text-gray-500 mb-1">Seller Rating:</div>
+        <div class="text-xs font-semibold text-neutral-500 mb-1">Seller Rating:</div>
         <StarRating 
           :modelValue="product.seller_rating || 0"
           :count="product.seller_rating_count || 0"
@@ -37,12 +37,12 @@
       </div>
       
       <div class="flex-1 mb-3">
-        <p class="text-sm text-gray-600 h-10 overflow-hidden">{{ truncateDescription(product.description) }}</p>
+        <p class="text-sm text-neutral-600 h-10 overflow-hidden">{{ truncateDescription(product.description) }}</p>
       </div>
       
       <div class="flex justify-between items-end mt-auto">
         <div>
-          <p class="text-sm text-gray-500">Price:</p>
+          <p class="text-sm font-semibold text-neutral-500">Price:</p>
           <p class="text-xl font-bold text-blue-700">৳{{ formatPrice(product.price) }}</p>
         </div>
         
@@ -50,21 +50,21 @@
           <button 
             v-if="isAuthenticated && product.is_available !== false && !isOwnProduct"
             @click.stop="addToCart(product)"
-            class="flex-1 px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition"
+            class="primary-action flex-1 px-3 py-1 text-sm"
           >
             <span v-if="isInCart(product.id)">In Cart ({{ getCartItemQuantity(product.id) }})</span>
             <span v-else>Add to Cart</span>
           </button>
           <div 
             v-else-if="isAuthenticated && isOwnProduct"
-            class="flex-1 px-3 py-1 bg-gray-300 text-gray-500 text-sm rounded text-center"
+            class="flex-1 rounded bg-beige-200 px-3 py-1 text-center text-sm font-bold text-neutral-500"
           >
             Your Product
           </div>
           <button 
             v-if="isAuthenticated && !isOwnProduct"
             @click.stop="$emit('chat', product)" 
-            class="px-3 py-1 bg-gray-200 text-gray-700 text-sm rounded hover:bg-gray-300 transition"
+            class="secondary-action px-3 py-1 text-sm"
           >
             Chat
           </button>

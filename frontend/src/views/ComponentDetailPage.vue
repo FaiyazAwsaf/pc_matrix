@@ -1,54 +1,54 @@
 <template>
-  <div class="min-h-screen bg-gray-50">
+  <div class="page-shell">
     <!-- Loading State -->
     <div v-if="loading" class="flex justify-center items-center h-64">
       <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-      <p class="ml-2 text-gray-600">Loading component details...</p>
+      <p class="ml-2 text-neutral-600">Loading component details...</p>
     </div>
 
     <!-- Error State -->
     <div v-else-if="error" class="text-center py-8">
       <p class="text-red-600">{{ error }}</p>
-      <button @click="fetchData" class="mt-2 bg-blue-600 text-white px-4 py-2 rounded">Retry</button>
+      <button @click="fetchData" class="primary-action mt-2 px-4 py-2">Retry</button>
     </div>
 
     <!-- Component Details -->
-    <div v-else-if="component" class="max-w-6xl mx-auto px-4 py-8">
+    <div v-else-if="component" class="page-container max-w-6xl">
 
       <!-- Component Header -->
-      <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+      <div class="surface-panel p-6 mb-6">
         <div class="flex flex-col md:flex-row gap-6">
           <div class="md:w-1/3">
             <img 
               :src="component.image || '/placeholder-component.png'" 
               :alt="component.name"
-              class="w-full h-64 object-contain bg-gray-100 rounded-lg"
+              class="w-full h-64 object-contain bg-beige-50 rounded-xl"
             />
           </div>
           <div class="md:w-2/3">
             <div class="mb-2">
-              <span class="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full">
+              <span class="inline-block bg-blue-100 text-blue-800 text-sm font-bold px-3 py-1 rounded-full">
                 {{ component.category.name }}
               </span>
             </div>
-            <h1 class="text-3xl font-bold text-gray-900 mb-2">{{ component.name }}</h1>
-            <p class="text-lg text-gray-600 mb-4">{{ component.brand }} {{ component.model }}</p>
+            <h1 class="text-3xl font-extrabold text-neutral-900 mb-2">{{ component.name }}</h1>
+            <p class="text-lg text-neutral-600 mb-4">{{ component.brand }} {{ component.model }}</p>
             
             <!-- Price Information -->
             <div v-if="offers && offers.length > 0" class="mb-4">
-              <h3 class="text-lg font-semibold mb-2">Available from:</h3>
+              <h3 class="text-lg font-bold mb-2 text-neutral-900">Available from:</h3>
               <div class="space-y-2">
-                <div v-for="offer in offers.slice(0, 3)" :key="offer.id" class="flex justify-between items-center border rounded-lg p-3">
+                <div v-for="offer in offers.slice(0, 3)" :key="offer.id" class="flex justify-between items-center rounded-xl border border-beige-200 bg-white p-3">
                   <div>
                     <p class="font-medium">{{ offer.retailer_name }}</p>
-                    <p class="text-sm text-gray-500">{{ offer.retailer }}</p>
+                    <p class="text-sm text-neutral-500">{{ offer.retailer }}</p>
                   </div>
                   <div class="text-right">
                     <p class="text-lg font-bold text-green-600">Tk. {{ offer.price }}</p>
                     <a 
                       :href="offer.url" 
                       target="_blank" 
-                      class="text-sm bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+                      class="primary-action px-3 py-1 text-sm"
                     >
                       View Deal
                     </a>
@@ -58,26 +58,26 @@
               <button 
                 v-if="offers.length > 3" 
                 @click="showAllOffers = !showAllOffers"
-                class="mt-2 text-blue-600 hover:text-blue-800"
+                class="mt-2 font-bold text-blue-700 hover:text-blue-800"
               >
                 {{ showAllOffers ? 'Show Less' : `Show ${offers.length - 3} More Offers` }}
               </button>
             </div>
             <div v-else class="mb-4">
-              <p class="text-gray-500">No pricing information available</p>
+              <p class="text-neutral-500">No pricing information available</p>
             </div>
           </div>
         </div>
       </div>
 
       <!-- All Offers (when expanded) -->
-      <div v-if="showAllOffers && offers && offers.length > 3" class="bg-white rounded-lg shadow-md p-6 mb-6">
-        <h3 class="text-xl font-bold mb-4">All Available Offers</h3>
+      <div v-if="showAllOffers && offers && offers.length > 3" class="surface-panel p-6 mb-6">
+        <h3 class="text-xl font-extrabold mb-4 text-neutral-900">All Available Offers</h3>
         <div class="grid gap-3">
-          <div v-for="offer in offers.slice(3)" :key="offer.id" class="flex justify-between items-center border rounded-lg p-3">
+          <div v-for="offer in offers.slice(3)" :key="offer.id" class="flex justify-between items-center rounded-xl border border-beige-200 bg-white p-3">
             <div>
               <p class="font-medium">{{ offer.retailer_name }}</p>
-              <p class="text-sm text-gray-500">{{ offer.retailer }}</p>
+              <p class="text-sm text-neutral-500">{{ offer.retailer }}</p>
               <p class="text-xs" :class="offer.availability ? 'text-green-600' : 'text-red-600'">
                 {{ offer.availability ? 'In Stock' : 'Out of Stock' }}
               </p>
@@ -87,7 +87,7 @@
               <a 
                 :href="offer.url" 
                 target="_blank" 
-                class="text-sm bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+                class="primary-action px-3 py-1 text-sm"
               >
                 View Deal
               </a>
@@ -97,17 +97,17 @@
       </div>
 
       <!-- Specifications -->
-      <div class="bg-white rounded-lg shadow-md p-6">
-        <h3 class="text-xl font-bold mb-4">Specifications</h3>
+      <div class="surface-panel p-6">
+        <h3 class="text-xl font-extrabold mb-4 text-neutral-900">Specifications</h3>
         <div v-if="component.specs && Object.keys(component.specs).length > 0" class="grid md:grid-cols-2 gap-4">
-          <div v-for="(value, key) in component.specs" :key="key" class="border-b pb-2">
+          <div v-for="(value, key) in component.specs" :key="key" class="border-b border-beige-200 pb-2">
             <div class="flex justify-between">
-              <span class="font-medium text-gray-700 capitalize">{{ formatSpecKey(key) }}:</span>
-              <span class="text-gray-900">{{ value || 'N/A' }}</span>
+              <span class="font-bold text-neutral-700 capitalize">{{ formatSpecKey(key) }}:</span>
+              <span class="text-neutral-900">{{ value || 'N/A' }}</span>
             </div>
           </div>
         </div>
-        <div v-else class="text-gray-500">
+        <div v-else class="text-neutral-500">
           No detailed specifications available.
         </div>
       </div>

@@ -1,15 +1,16 @@
 <template>
-  <div class="container mx-auto px-4 py-8">
+  <div class="page-shell">
+    <div class="page-container">
     <div v-if="loading" class="flex justify-center items-center py-12">
       <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-700"></div>
     </div>
 
     <div v-else-if="error" class="text-center py-12">
       <div class="text-6xl mb-4">❌</div>
-      <p class="text-gray-500 text-lg mb-2">{{ error }}</p>
+      <p class="text-neutral-500 text-lg mb-2">{{ error }}</p>
       <button 
         @click="$router.go(-1)" 
-        class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+        class="primary-action px-4 py-2"
       >
         Go Back
       </button>
@@ -17,41 +18,41 @@
 
     <div v-else-if="product" class="max-w-6xl mx-auto">
       <nav class="mb-6">
-        <ol class="flex items-center space-x-2 text-sm text-gray-500">
+        <ol class="flex items-center space-x-2 text-sm font-semibold text-neutral-500">
           <li><router-link to="/marketplace" class="hover:text-blue-600">Marketplace</router-link></li>
           <li><span class="mx-2">/</span></li>
-          <li><span class="text-gray-400">{{ product.category }}</span></li>
+          <li><span class="text-neutral-400">{{ product.category }}</span></li>
           <li><span class="mx-2">/</span></li>
-          <li><span class="text-gray-900 font-medium">{{ product.name }}</span></li>
+          <li><span class="text-neutral-900 font-bold">{{ product.name }}</span></li>
         </ol>
       </nav>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-        <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="surface-panel p-6">
           <img 
             :src="product.image || '/placeholder-product.jpg'" 
             :alt="product.name"
             @error="handleImageError"
-            class="w-full h-96 object-contain bg-gray-100 rounded-lg"
+            class="w-full h-96 object-contain bg-beige-50 rounded-xl"
           />
         </div>
 
-        <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="surface-panel p-6">
           <div class="mb-4">
-            <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full mb-2">
+            <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-sm font-bold rounded-full mb-2">
               {{ product.category }}
             </span>
-            <span class="inline-block px-3 py-1 bg-green-100 text-green-800 text-sm font-medium rounded-full mb-2 ml-2">
+            <span class="inline-block px-3 py-1 bg-green-100 text-green-800 text-sm font-bold rounded-full mb-2 ml-2">
               {{ product.condition }}
             </span>
           </div>
 
-          <h1 class="text-3xl font-bold text-gray-900 mb-4">{{ product.name }}</h1>
+          <h1 class="text-3xl font-extrabold text-neutral-900 mb-4">{{ product.name }}</h1>
 
           <div class="mb-6">
             <div class="flex items-center space-x-4">
               <span class="text-4xl font-bold text-blue-700">৳{{ formatPrice(product.price) }}</span>
-              <span v-if="product.price_type === 'negotiable'" class="text-sm text-gray-500 bg-yellow-100 px-2 py-1 rounded">
+              <span v-if="product.price_type === 'negotiable'" class="text-sm font-bold text-yellow-800 bg-yellow-100 px-2 py-1 rounded">
                 Negotiable
               </span>
             </div>
@@ -59,40 +60,40 @@
 
           <div class="grid grid-cols-2 gap-4 mb-6 text-sm">
             <div v-if="product.brand">
-              <span class="font-medium text-gray-700">Brand:</span>
-              <span class="ml-2 text-gray-600">{{ product.brand }}</span>
+              <span class="font-bold text-neutral-700">Brand:</span>
+              <span class="ml-2 text-neutral-600">{{ product.brand }}</span>
             </div>
             <div v-if="product.age">
-              <span class="font-medium text-gray-700">Age:</span>
-              <span class="ml-2 text-gray-600">{{ product.age }}</span>
+              <span class="font-bold text-neutral-700">Age:</span>
+              <span class="ml-2 text-neutral-600">{{ product.age }}</span>
             </div>
             <div v-if="product.warranty">
-              <span class="font-medium text-gray-700">Warranty:</span>
-              <span class="ml-2 text-gray-600">{{ product.warranty }}</span>
+              <span class="font-bold text-neutral-700">Warranty:</span>
+              <span class="ml-2 text-neutral-600">{{ product.warranty }}</span>
             </div>
             <div v-if="product.box_accessories">
-              <span class="font-medium text-gray-700">Box & Accessories:</span>
-              <span class="ml-2 text-gray-600">{{ product.box_accessories }}</span>
+              <span class="font-bold text-neutral-700">Box & Accessories:</span>
+              <span class="ml-2 text-neutral-600">{{ product.box_accessories }}</span>
             </div>
             <div v-if="product.availability">
-              <span class="font-medium text-gray-700">Availability:</span>
-              <span class="ml-2 text-gray-600">{{ product.availability }}</span>
+              <span class="font-bold text-neutral-700">Availability:</span>
+              <span class="ml-2 text-neutral-600">{{ product.availability }}</span>
             </div>
             <div v-if="product.compatibility">
-              <span class="font-medium text-gray-700">Compatibility:</span>
-              <span class="ml-2 text-gray-600">{{ product.compatibility }}</span>
+              <span class="font-bold text-neutral-700">Compatibility:</span>
+              <span class="ml-2 text-neutral-600">{{ product.compatibility }}</span>
             </div>
           </div>
 
-          <div class="mb-6 p-4 bg-gray-50 rounded-lg">
-            <h3 class="font-medium text-gray-900 mb-2">Seller Information</h3>
+          <div class="mb-6 p-4 bg-beige-50 rounded-xl border border-beige-200">
+            <h3 class="font-bold text-neutral-900 mb-2">Seller Information</h3>
             <div class="flex items-center space-x-4">
-              <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">
+              <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
                 {{ getSellerInitial(product.seller_name) }}
               </div>
               <div class="flex-1">
-                <p class="font-medium text-gray-900">{{ product.seller_name || 'Demo Seller' }}</p>
-                <p class="text-sm text-gray-500">Member since {{ formatDate(product.created_at) }}</p>
+                <p class="font-bold text-neutral-900">{{ product.seller_name || 'Demo Seller' }}</p>
+                <p class="text-sm text-neutral-500">Member since {{ formatDate(product.created_at) }}</p>
                 <div class="mt-2">
                   <StarRating 
                     :modelValue="product.seller_rating || 0"
@@ -106,7 +107,7 @@
                 <button 
                   v-if="canRateSeller"
                   @click="showRatingModal = true" 
-                  class="px-3 py-1 bg-yellow-500 text-white text-sm rounded hover:bg-yellow-600 transition"
+                  class="px-3 py-1 bg-yellow-500 text-white text-sm rounded-lg font-bold hover:bg-yellow-600 transition"
                 >
                   {{ userSellerRating ? 'Update' : 'Rate Seller' }}
                 </button>
@@ -120,14 +121,14 @@
               :disabled="!product.is_available"
               class="flex-1 px-6 py-3 text-lg font-medium rounded-lg transition"
               :class="product.is_available !== false
-                ? 'bg-green-600 text-white hover:bg-green-700' 
-                : 'bg-gray-400 text-white cursor-not-allowed'"
+                ? 'success-action'
+                : 'bg-neutral-400 text-white cursor-not-allowed'"
             >
               {{ product.is_available !== false ? 'Add to Cart' : 'Sold Out' }}
             </button>
             <button 
               @click="handleChat" 
-              class="px-6 py-3 bg-gray-200 text-gray-700 text-lg font-medium rounded-lg hover:bg-gray-300 transition"
+              class="secondary-action px-6 py-3 text-lg"
             >
               Chat with Seller
             </button>
@@ -135,9 +136,9 @@
         </div>
       </div>
 
-      <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-        <h2 class="text-2xl font-bold text-gray-900 mb-4">Description</h2>
-        <p class="text-gray-700 leading-relaxed whitespace-pre-line">{{ product.description }}</p>
+      <div class="surface-panel p-6 mb-8">
+        <h2 class="text-2xl font-extrabold text-neutral-900 mb-4">Description</h2>
+        <p class="text-neutral-700 leading-relaxed whitespace-pre-line">{{ product.description }}</p>
       </div>
 
     </div>
@@ -158,6 +159,7 @@
       :product="product"
       @close="showChatModal = false"
     />
+    </div>
   </div>
 </template>
 

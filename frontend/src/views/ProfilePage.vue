@@ -1,36 +1,38 @@
 <template>
-  <div class="container mx-auto px-4 py-8">
+  <div class="page-shell">
+    <div class="page-container">
     <div v-if="loading" class="flex justify-center items-center py-12">
       <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-700"></div>
     </div>
 
     <div v-else class="max-w-6xl mx-auto">
-      <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+      <div class="surface-panel p-6 mb-6">
         <div class="flex items-center space-x-6">
-          <div class="w-24 h-24 bg-blue-500 rounded-full flex items-center justify-center text-white text-3xl font-bold">
+          <div class="w-24 h-24 bg-blue-600 rounded-full flex items-center justify-center text-white text-3xl font-bold shadow-lg">
             {{ userInitials }}
           </div>
           <div class="flex-1">
-            <h1 class="text-3xl font-bold text-gray-800">{{ user.first_name }} {{ user.last_name }}</h1>
-            <p class="text-gray-600">{{ user.email }}</p>
-            <p class="text-sm text-gray-500 mt-1">Member since {{ formatDate(user.date_joined) }}</p>
+            <p class="page-kicker">Profile</p>
+            <h1 class="page-title">{{ user.first_name }} {{ user.last_name }}</h1>
+            <p class="text-neutral-600 font-medium">{{ user.email }}</p>
+            <p class="text-sm text-neutral-500 mt-1">Member since {{ formatDate(user.date_joined) }}</p>
             <div class="flex items-center mt-2 space-x-3">
               <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                 ✓ Verified Email
               </span>
               <div class="flex items-center space-x-1">
                 <div class="flex items-center">
-                  <svg v-for="i in 5" :key="i" class="w-4 h-4" :class="i <= Math.floor(user.seller_rating || 0) ? 'text-yellow-400' : 'text-gray-300'" fill="currentColor" viewBox="0 0 20 20">
+                  <svg v-for="i in 5" :key="i" class="w-4 h-4" :class="i <= Math.floor(user.seller_rating || 0) ? 'text-yellow-400' : 'text-beige-300'" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                   </svg>
                 </div>
-                <span class="text-sm text-gray-600">{{ user.seller_rating || 0 }}/5 ({{ user.seller_rating_count || 0 }} reviews)</span>
+                <span class="text-sm text-neutral-600">{{ user.seller_rating || 0 }}/5 ({{ user.seller_rating_count || 0 }} reviews)</span>
               </div>
             </div>
           </div>
           <button 
             @click="showEditModal = true"
-            class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+            class="primary-action px-4 py-2"
           >
             Edit Profile
           </button>
@@ -38,7 +40,7 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-        <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="surface-panel p-6">
           <div class="flex items-center">
             <div class="p-3 rounded-full bg-blue-100 text-blue-600">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -46,13 +48,13 @@
               </svg>
             </div>
             <div class="ml-4">
-              <p class="text-sm font-medium text-gray-600">Products Listed</p>
-              <p class="text-2xl font-semibold text-gray-900">{{ stats.totalProducts }}</p>
+              <p class="text-sm font-medium text-neutral-600">Products Listed</p>
+              <p class="text-2xl font-semibold text-neutral-900">{{ stats.totalProducts }}</p>
             </div>
           </div>
         </div>
 
-        <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="surface-panel p-6">
           <div class="flex items-center">
             <div class="p-3 rounded-full bg-green-100 text-green-600">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -60,13 +62,13 @@
               </svg>
             </div>
             <div class="ml-4">
-              <p class="text-sm font-medium text-gray-600">Items Sold</p>
-              <p class="text-2xl font-semibold text-gray-900">{{ stats.totalSold }}</p>
+              <p class="text-sm font-medium text-neutral-600">Items Sold</p>
+              <p class="text-2xl font-semibold text-neutral-900">{{ stats.totalSold }}</p>
             </div>
           </div>
         </div>
 
-        <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="surface-panel p-6">
           <div class="flex items-center">
             <div class="p-3 rounded-full bg-yellow-100 text-yellow-600">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -74,28 +76,28 @@
               </svg>
             </div>
             <div class="ml-4">
-              <p class="text-sm font-medium text-gray-600">Total Revenue</p>
-              <p class="text-2xl font-semibold text-gray-900">৳{{ formatPrice(stats.totalRevenue) }}</p>
+              <p class="text-sm font-medium text-neutral-600">Total Revenue</p>
+              <p class="text-2xl font-semibold text-neutral-900">৳{{ formatPrice(stats.totalRevenue) }}</p>
             </div>
           </div>
         </div>
 
         <div 
           @click="$router.push('/chats')"
-          class="bg-white rounded-lg shadow-md p-6 cursor-pointer hover:shadow-lg transition-shadow"
+          class="surface-panel p-6 cursor-pointer hover:shadow-lg transition-shadow"
         >
           <div class="flex items-center">
-            <div class="p-3 rounded-full bg-purple-100 text-purple-600">
+                <div class="p-3 rounded-full bg-blue-100 text-blue-600">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
               </svg>
             </div>
             <div class="ml-4 flex-1">
-              <p class="text-sm font-medium text-gray-600">Active Chats</p>
-              <p class="text-2xl font-semibold text-gray-900">{{ stats.activeChats }}</p>
+              <p class="text-sm font-medium text-neutral-600">Active Chats</p>
+              <p class="text-2xl font-semibold text-neutral-900">{{ stats.activeChats }}</p>
             </div>
             <div class="ml-2">
-              <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-5 h-5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
             </div>
@@ -103,18 +105,18 @@
         </div>
       </div>
 
-      <div class="bg-white rounded-lg shadow-md">
-        <div class="border-b border-gray-200">
+      <div class="surface-panel overflow-hidden">
+        <div class="border-b border-beige-200">
           <nav class="-mb-px flex space-x-8 px-6">
             <button
               v-for="tab in tabs"
               :key="tab.id"
               @click="activeTab = tab.id"
               :class="[
-                'py-4 px-1 border-b-2 font-medium text-sm',
+                'py-4 px-1 border-b-2 font-bold text-sm',
                 activeTab === tab.id
                   ? 'border-blue-500 text-blue-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  : 'border-transparent text-neutral-500 hover:text-neutral-700 hover:border-beige-300'
               ]"
             >
               {{ tab.name }}
@@ -125,10 +127,10 @@
         <div class="p-6">
           <div v-if="activeTab === 'products'">
             <div class="flex justify-between items-center mb-4">
-              <h3 class="text-lg font-medium text-gray-900">My Products</h3>
+              <h3 class="text-lg font-bold text-neutral-900">My Products</h3>
               <button 
                 @click="showAddProductModal = true"
-                class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
+                class="success-action px-4 py-2"
               >
                 Add Product
               </button>
@@ -149,12 +151,12 @@
             
             <div v-else-if="myProducts.length === 0 && !productSearchQuery" class="text-center py-8">
               <div class="text-4xl mb-4">📦</div>
-              <p class="text-gray-500">You haven't listed any products yet.</p>
+              <p class="text-neutral-500">You haven't listed any products yet.</p>
             </div>
             
             <div v-else-if="myProducts.length === 0 && productSearchQuery" class="text-center py-8">
               <div class="text-4xl mb-4">🔍</div>
-              <p class="text-gray-500">No products found matching "{{ productSearchQuery }}"</p>
+              <p class="text-neutral-500">No products found matching "{{ productSearchQuery }}"</p>
             </div>
             
             <div v-else>
@@ -162,15 +164,15 @@
                 <div 
                   v-for="product in myProducts" 
                   :key="product.id"
-                  class="border rounded-lg p-4 hover:shadow-md transition"
+                  class="surface-panel-soft p-4 transition hover:shadow-md"
                 >
                   <img 
                     :src="product.image || 'https://via.placeholder.com/200x150'" 
                     :alt="product.name"
                     class="w-full h-32 object-cover rounded mb-3"
                   />
-                  <h4 class="font-medium text-gray-900 mb-1">{{ product.name }}</h4>
-                  <p class="text-sm text-gray-600 mb-2">{{ product.category }} - {{ product.condition }}</p>
+                  <h4 class="font-bold text-neutral-900 mb-1">{{ product.name }}</h4>
+                  <p class="text-sm text-neutral-600 mb-2">{{ product.category }} - {{ product.condition }}</p>
                   <p class="text-lg font-semibold text-blue-600 mb-3">৳{{ formatPrice(product.price) }}</p>
                   <div class="flex space-x-2">
                     <button 
@@ -193,7 +195,7 @@
                 <button
                   @click="loadMoreProducts"
                   :disabled="loadingMoreProducts"
-                  class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                  class="primary-action px-6 py-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <span v-if="loadingMoreProducts" class="flex items-center">
                     <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
@@ -206,11 +208,11 @@
           </div>
 
           <div v-if="activeTab === 'sales'">
-            <h3 class="text-lg font-medium text-gray-900 mb-4">Sales History</h3>
+            <h3 class="text-lg font-medium text-neutral-900 mb-4">Sales History</h3>
             
             <div v-if="salesHistory.length === 0" class="text-center py-8">
               <div class="text-4xl mb-4">💰</div>
-              <p class="text-gray-500">No sales yet. Keep promoting your products!</p>
+              <p class="text-neutral-500">No sales yet. Keep promoting your products!</p>
             </div>
             
             <div v-else class="space-y-4">
@@ -226,9 +228,9 @@
                     class="w-12 h-12 object-cover rounded"
                   />
                   <div>
-                    <h4 class="font-medium text-gray-900">{{ sale.product_name }}</h4>
-                    <p class="text-sm text-gray-600">Sold to {{ sale.buyer_name }}</p>
-                    <p class="text-xs text-gray-500">{{ formatDate(sale.created_at) }}</p>
+                    <h4 class="font-medium text-neutral-900">{{ sale.product_name }}</h4>
+                    <p class="text-sm text-neutral-600">Sold to {{ sale.buyer_name }}</p>
+                    <p class="text-xs text-neutral-500">{{ formatDate(sale.created_at) }}</p>
                   </div>
                 </div>
                 <div class="text-right">
@@ -237,7 +239,7 @@
                     'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium',
                     sale.status === 'completed' ? 'bg-green-100 text-green-800' : 
                     sale.status === 'pending' ? 'bg-yellow-100 text-yellow-800' : 
-                    'bg-gray-100 text-gray-800'
+                    'bg-beige-100 text-neutral-800'
                   ]">
                     {{ sale.status }}
                   </span>
@@ -247,11 +249,11 @@
           </div>
 
           <div v-if="activeTab === 'purchases'">
-            <h3 class="text-lg font-medium text-gray-900 mb-4">Purchase History</h3>
+            <h3 class="text-lg font-medium text-neutral-900 mb-4">Purchase History</h3>
             
             <div v-if="purchaseHistory.length === 0" class="text-center py-8">
               <div class="text-4xl mb-4">🛒</div>
-              <p class="text-gray-500">No purchases yet. Browse the marketplace!</p>
+              <p class="text-neutral-500">No purchases yet. Browse the marketplace!</p>
             </div>
             
             <div v-else class="space-y-4">
@@ -267,9 +269,9 @@
                     class="w-12 h-12 object-cover rounded"
                   />
                   <div>
-                    <h4 class="font-medium text-gray-900">{{ purchase.product_name }}</h4>
-                    <p class="text-sm text-gray-600">From {{ purchase.seller_name }}</p>
-                    <p class="text-xs text-gray-500">{{ formatDate(purchase.created_at) }}</p>
+                    <h4 class="font-medium text-neutral-900">{{ purchase.product_name }}</h4>
+                    <p class="text-sm text-neutral-600">From {{ purchase.seller_name }}</p>
+                    <p class="text-xs text-neutral-500">{{ formatDate(purchase.created_at) }}</p>
                   </div>
                 </div>
                 <div class="text-right">
@@ -278,7 +280,7 @@
                     'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium',
                     purchase.status === 'completed' ? 'bg-green-100 text-green-800' : 
                     purchase.status === 'pending' ? 'bg-yellow-100 text-yellow-800' : 
-                    'bg-gray-100 text-gray-800'
+                    'bg-beige-100 text-neutral-800'
                   ]">
                     {{ purchase.status }}
                   </span>
@@ -288,16 +290,16 @@
           </div>
 
           <div v-if="activeTab === 'analytics'">
-            <h3 class="text-lg font-medium text-gray-900 mb-4">Sales Analytics</h3>
+            <h3 class="text-lg font-medium text-neutral-900 mb-4">Sales Analytics</h3>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div class="bg-gray-50 rounded-lg p-4">
-                <h4 class="font-medium text-gray-900 mb-3">Sales by Category</h4>
+              <div class="surface-panel-soft rounded-lg p-4">
+                <h4 class="font-medium text-neutral-900 mb-3">Sales by Category</h4>
                 <div class="space-y-2">
                   <div v-for="category in categoryStats" :key="category.name" class="flex justify-between items-center">
-                    <span class="text-sm text-gray-600">{{ category.name }}</span>
+                    <span class="text-sm text-neutral-600">{{ category.name }}</span>
                     <div class="flex items-center space-x-2">
-                      <div class="w-20 bg-gray-200 rounded-full h-2">
+                      <div class="w-20 bg-beige-200 rounded-full h-2">
                         <div 
                           class="bg-blue-600 h-2 rounded-full" 
                           :style="{ width: category.percentage + '%' }"
@@ -309,11 +311,11 @@
                 </div>
               </div>
 
-              <div class="bg-gray-50 rounded-lg p-4">
-                <h4 class="font-medium text-gray-900 mb-3">Monthly Revenue</h4>
+              <div class="surface-panel-soft rounded-lg p-4">
+                <h4 class="font-medium text-neutral-900 mb-3">Monthly Revenue</h4>
                 <div class="space-y-2">
                   <div v-for="month in monthlyRevenue" :key="month.month" class="flex justify-between">
-                    <span class="text-sm text-gray-600">{{ month.month }}</span>
+                    <span class="text-sm text-neutral-600">{{ month.month }}</span>
                     <span class="text-sm font-medium">৳{{ formatPrice(month.revenue) }}</span>
                   </div>
                 </div>
@@ -325,24 +327,24 @@
     </div>
 
     <div v-if="showEditModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div class="bg-white rounded-lg p-6 w-full max-w-md">
-        <h3 class="text-lg font-medium text-gray-900 mb-4">Edit Profile</h3>
+      <div class="surface-panel p-6 w-full max-w-md">
+        <h3 class="text-lg font-bold text-neutral-900 mb-4">Edit Profile</h3>
         <form @submit.prevent="updateProfile">
           <div class="space-y-4">
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+              <label class="form-label">First Name</label>
               <input 
                 v-model="editForm.first_name"
                 type="text" 
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                class="form-control"
               />
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+              <label class="form-label">Last Name</label>
               <input 
                 v-model="editForm.last_name"
                 type="text" 
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                class="form-control"
               />
             </div>
           </div>
@@ -350,13 +352,13 @@
             <button 
               type="button"
               @click="showEditModal = false"
-              class="px-4 py-2 text-gray-700 border border-gray-300 rounded-md hover:bg-gray-50"
+              class="secondary-action px-4 py-2"
             >
               Cancel
             </button>
             <button 
               type="submit"
-              class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+              class="primary-action px-4 py-2"
             >
               Save Changes
             </button>
@@ -379,7 +381,7 @@
     />
 
     <div v-if="showDeleteModal" class="fixed inset-0 flex items-center justify-center z-50" style="background-color: rgba(0, 0, 0, 0.4);">
-      <div class="bg-white rounded-lg p-6 w-full max-w-md mx-4">
+      <div class="surface-panel p-6 w-full max-w-md mx-4">
         <div class="flex items-center mb-4">
           <div class="flex-shrink-0 w-10 h-10 mx-auto bg-red-100 rounded-full flex items-center justify-center">
             <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -388,26 +390,27 @@
           </div>
         </div>
         <div class="text-center">
-          <h3 class="text-lg font-medium text-gray-900 mb-2">Delete Product</h3>
-          <p class="text-sm text-gray-500 mb-6">
+          <h3 class="text-lg font-medium text-neutral-900 mb-2">Delete Product</h3>
+          <p class="text-sm text-neutral-500 mb-6">
             Are you sure you want to delete "{{ productToDelete?.name }}"? This action cannot be undone.
           </p>
           <div class="flex space-x-3">
             <button 
               @click="showDeleteModal = false"
-              class="flex-1 px-4 py-2 text-gray-700 border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              class="secondary-action flex-1 px-4 py-2"
             >
               Cancel
             </button>
             <button 
               @click="confirmDelete"
-              class="flex-1 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500"
+              class="danger-action flex-1 px-4 py-2"
             >
               Delete
             </button>
           </div>
         </div>
       </div>
+    </div>
     </div>
   </div>
 </template>

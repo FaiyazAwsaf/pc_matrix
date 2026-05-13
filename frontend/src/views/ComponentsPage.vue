@@ -1,18 +1,20 @@
 <template>
-  <div class="container mx-auto px-4 py-8">
-    <div class="mb-8">
-      <h1 class="text-3xl font-bold text-gray-800 mb-2">PC Components</h1>
-      <p class="text-gray-600">Browse and compare PC components from various vendors</p>
+  <div class="page-shell">
+    <div class="page-container">
+    <div class="page-header">
+      <p class="page-kicker">Catalog</p>
+      <h1 class="page-title">PC Components</h1>
+      <p class="page-subtitle">Browse and compare PC components from various vendors.</p>
     </div>
     
     <!-- Filters Section -->
-    <div class="bg-white rounded-lg shadow-md p-4 mb-6">
+    <div class="surface-panel p-4 mb-6">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+          <label class="form-label">Category</label>
           <select 
             v-model="filters.category" 
-            class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+            class="form-control"
           >
             <option value="">All Categories</option>
             <option v-for="category in categories" :key="category.slug" :value="category.slug">
@@ -22,10 +24,10 @@
         </div>
         
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Manufacturer</label>
+          <label class="form-label">Manufacturer</label>
           <select 
             v-model="filters.manufacturer" 
-            class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+            class="form-control"
           >
             <option value="">All Manufacturers</option>
             <option v-for="manufacturer in manufacturers" :key="manufacturer.slug" :value="manufacturer.slug">
@@ -35,10 +37,10 @@
         </div>
         
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Sort By</label>
+          <label class="form-label">Sort By</label>
           <select 
             v-model="filters.sortBy" 
-            class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+            class="form-control"
           >
             <option value="name">Name</option>
             <option value="-release_date">Newest First</option>
@@ -47,12 +49,12 @@
         </div>
         
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Search</label>
+          <label class="form-label">Search</label>
           <input 
             v-model="filters.search" 
             type="text" 
             placeholder="Search components..." 
-            class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+            class="form-control"
           >
         </div>
       </div>
@@ -60,7 +62,7 @@
       <div class="mt-4 flex justify-between items-center">
         <button 
           @click="fetchComponents" 
-          class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+          class="primary-action px-4 py-2"
         >
           Apply Filters
         </button>
@@ -68,7 +70,7 @@
         <button 
           v-if="compareList.length > 0" 
           @click="goToCompare" 
-          class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
+          class="success-action px-4 py-2"
         >
           Compare ({{ compareList.length }})
         </button>
@@ -88,10 +90,10 @@
     
     <!-- Empty State -->
     <div v-else-if="components.length === 0" class="text-center py-12">
-      <p class="text-gray-500 text-lg">No components found matching your criteria.</p>
+      <p class="text-neutral-500 text-lg">No components found matching your criteria.</p>
       <button 
         @click="resetFilters" 
-        class="mt-4 px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition"
+        class="secondary-action mt-4 px-4 py-2"
       >
         Reset Filters
       </button>
@@ -114,18 +116,19 @@
         <button 
           :disabled="!hasPreviousPage" 
           @click="previousPage" 
-          class="px-4 py-2 rounded-md border border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
+          class="secondary-action px-4 py-2 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Previous
         </button>
         <button 
           :disabled="!hasNextPage" 
           @click="nextPage" 
-          class="px-4 py-2 rounded-md border border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
+          class="secondary-action px-4 py-2 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Next
         </button>
       </div>
+    </div>
     </div>
   </div>
 </template>

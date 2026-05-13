@@ -1,10 +1,11 @@
 <template>
-  <div class="container mx-auto px-4 py-8">
-    <div class="max-w-4xl mx-auto">
-      <div class="bg-white rounded-lg shadow-md">
-        <div class="border-b border-gray-200 px-6 py-4">
-          <h1 class="text-2xl font-bold text-gray-800">My Chats</h1>
-          <p class="text-gray-600 mt-1">View and manage your conversations</p>
+  <div class="page-shell">
+    <div class="page-container max-w-4xl">
+      <div class="surface-panel overflow-hidden">
+        <div class="border-b border-beige-200 px-6 py-5">
+          <p class="page-kicker">Messages</p>
+          <h1 class="page-title">My Chats</h1>
+          <p class="page-subtitle">View and manage your marketplace conversations.</p>
         </div>
 
         <div v-if="loading" class="flex justify-center items-center py-12">
@@ -13,60 +14,60 @@
 
         <div v-else-if="chats.length === 0" class="text-center py-12">
           <div class="text-6xl mb-4">💬</div>
-          <h3 class="text-lg font-medium text-gray-900 mb-2">No conversations yet</h3>
-          <p class="text-gray-500 mb-6">Start chatting with sellers about products you're interested in!</p>
+          <h3 class="text-lg font-bold text-neutral-900 mb-2">No conversations yet</h3>
+          <p class="text-neutral-500 mb-6">Start chatting with sellers about products you're interested in.</p>
           <router-link 
             to="/marketplace" 
-            class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+            class="primary-action px-4 py-2"
           >
             Browse Marketplace
           </router-link>
         </div>
 
-        <div v-else class="divide-y divide-gray-200">
+        <div v-else class="divide-y divide-beige-200">
           <div 
             v-for="chat in chats" 
             :key="chat.id"
             @click="openChat(chat)"
-            class="p-6 hover:bg-gray-50 cursor-pointer transition-colors"
+            class="cursor-pointer p-6 transition-colors hover:bg-blue-50"
           >
             <div class="flex items-start space-x-4">
               <div class="flex-shrink-0">
-                <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">
+                <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
                   {{ getInitials(chat.seller_name) }}
                 </div>
               </div>
               
               <div class="flex-1 min-w-0">
                 <div class="flex items-center justify-between mb-1">
-                  <h3 class="text-lg font-medium text-gray-900 truncate">
+                  <h3 class="text-lg font-bold text-neutral-900 truncate">
                     {{ chat.product_name }}
                   </h3>
-                  <span class="text-sm text-gray-500">
+                  <span class="text-sm text-neutral-500">
                     {{ formatTime(chat.last_message?.created_at || chat.created_at) }}
                   </span>
                 </div>
                 
-                <p class="text-sm text-gray-600 mb-2">
+                <p class="text-sm font-medium text-neutral-600 mb-2">
                   Chat with {{ chat.seller_name }}
                 </p>
                 
                 <div v-if="chat.last_message" class="flex items-center space-x-2">
-                  <span class="text-sm font-medium text-gray-700">
+                  <span class="text-sm font-bold text-neutral-700">
                     {{ chat.last_message.sender }}:
                   </span>
-                  <span class="text-sm text-gray-600 truncate">
+                  <span class="text-sm text-neutral-600 truncate">
                     {{ chat.last_message.content }}
                   </span>
                 </div>
                 
-                <div v-else class="text-sm text-gray-500 italic">
+                <div v-else class="text-sm text-neutral-500 italic">
                   No messages yet
                 </div>
               </div>
               
               <div class="flex-shrink-0">
-                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-5 h-5 text-beige-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                 </svg>
               </div>
@@ -77,19 +78,19 @@
     </div>
 
     <!-- Chat Modal -->
-    <div v-if="selectedChat" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div class="bg-white rounded-lg w-full max-w-4xl h-5/6 flex flex-col">
-        <div class="flex items-center justify-between p-4 border-b border-gray-200">
+    <div v-if="selectedChat" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+      <div class="surface-panel w-full max-w-4xl h-5/6 flex flex-col overflow-hidden">
+        <div class="flex items-center justify-between p-4 border-b border-beige-200">
           <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">
+            <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
               {{ getInitials(selectedChat.seller_name) }}
             </div>
             <div>
-              <h2 class="text-lg font-medium text-gray-900">{{ selectedChat.product_name }}</h2>
-              <p class="text-sm text-gray-600">Chat with {{ selectedChat.seller_name }}</p>
+              <h2 class="text-lg font-bold text-neutral-900">{{ selectedChat.product_name }}</h2>
+              <p class="text-sm text-neutral-600">Chat with {{ selectedChat.seller_name }}</p>
             </div>
           </div>
-          <button @click="closeChat" class="text-gray-400 hover:text-gray-600">
+          <button @click="closeChat" class="text-neutral-400 hover:text-neutral-700">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
@@ -108,7 +109,7 @@
                   'max-w-xs lg:max-w-md px-4 py-2 rounded-lg',
                   message.sender === currentUser.id
                     ? 'bg-blue-600 text-white'
-                    : 'bg-gray-200 text-gray-800'
+                    : 'bg-beige-100 text-neutral-800'
                 ]"
               >
                 <div class="text-xs opacity-75 mb-1">{{ message.sender_name }}</div>
@@ -119,23 +120,23 @@
             
             <div v-if="messages.length === 0" class="text-center py-8">
               <div class="text-4xl mb-4">💬</div>
-              <p class="text-gray-500">No messages yet. Start the conversation!</p>
+              <p class="text-neutral-500">No messages yet. Start the conversation.</p>
             </div>
           </div>
 
-          <div class="border-t border-gray-200 p-4">
+          <div class="border-t border-beige-200 p-4">
             <form @submit.prevent="sendMessage" class="flex space-x-2">
               <input
                 v-model="newMessage"
                 type="text"
                 placeholder="Type your message..."
                 :disabled="sendingMessage"
-                class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                class="form-control flex-1"
               />
               <button
                 type="submit"
                 :disabled="!newMessage.trim() || sendingMessage"
-                class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                class="primary-action px-4 py-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {{ sendingMessage ? 'Sending...' : 'Send' }}
               </button>

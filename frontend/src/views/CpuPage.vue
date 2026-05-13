@@ -1,16 +1,17 @@
 <template>
-  <div class="min-h-screen bg-white">
-    <!-- Gradient Banner -->
-    <div class="bg-gradient-to-br from-slate-900 to-blue-800 text-white py-10 px-6 text-center">
-      <h1 class="text-3xl md:text-4xl font-extrabold">Choose A CPU</h1>
+  <div class="page-shell">
+    <div class="hero-band py-10 px-6 text-center">
+      <p class="page-kicker">Components</p>
+      <h1 class="page-title">Choose A CPU</h1>
+      <p class="page-subtitle">Filter processors by price, brand, clock, cache, and graphics.</p>
     </div>
 
-    <div class="p-6 grid grid-cols-1 lg:grid-cols-5 gap-6">
+    <div class="page-container grid grid-cols-1 lg:grid-cols-5 gap-6">
       <!-- Sidebar Filters -->
-      <aside class="lg:col-span-1 space-y-6">
+      <aside class="surface-panel p-5 lg:col-span-1 space-y-6">
         <!-- Price Filter -->
         <div v-if="filterOptions.price_range">
-          <label class="font-semibold block mb-1">Price</label>
+          <label class="form-label">Price</label>
           <input
             type="range"
             :min="filterOptions.price_range.min_price || 0"
@@ -18,12 +19,12 @@
             v-model="filters.maxPrice"
             class="w-full"
           />
-          <div class="text-sm text-gray-600">Tk. {{ filters.maxPrice }}</div>
+          <div class="text-sm text-neutral-600">Tk. {{ filters.maxPrice }}</div>
         </div>
 
         <!-- Manufacturer Filter -->
         <div v-if="filterOptions.manufacturers && filterOptions.manufacturers.length">
-          <label class="font-semibold block mb-1">Manufacturer</label>
+          <label class="form-label">Manufacturer</label>
           <div class="space-y-1">
             <label
               v-for="manufacturer in filterOptions.manufacturers"
@@ -48,7 +49,7 @@
             filterOptions.specs.core_counts.length
           "
         >
-          <label class="font-semibold block mb-1">Core Count</label>
+          <label class="form-label">Core Count</label>
           <div class="space-y-1">
             <label
               v-for="cores in filterOptions.specs.core_counts"
@@ -69,7 +70,7 @@
             filterOptions.specs.base_frequencies.length
           "
         >
-          <label class="font-semibold block mb-1">Base Frequency</label>
+          <label class="form-label">Base Frequency</label>
           <div class="space-y-1">
             <label
               v-for="freq in filterOptions.specs.base_frequencies.slice(0, 10)"
@@ -90,7 +91,7 @@
             filterOptions.specs.cache_sizes.length
           "
         >
-          <label class="font-semibold block mb-1">Cache</label>
+          <label class="form-label">Cache</label>
           <div class="space-y-1">
             <label
               v-for="cache in filterOptions.specs.cache_sizes.slice(0, 10)"
@@ -111,7 +112,7 @@
             filterOptions.specs.graphics_options.length
           "
         >
-          <label class="font-semibold block mb-1">Integrated Graphics</label>
+          <label class="form-label">Integrated Graphics</label>
           <div class="space-y-1">
             <label
               v-for="graphics in filterOptions.specs.graphics_options.slice(0, 8)"
@@ -132,27 +133,27 @@
             type="text"
             placeholder="Search CPU"
             v-model="searchQuery"
-            class="border rounded px-4 py-2 w-full max-w-sm"
+            class="form-control w-full max-w-sm"
           />
         </div>
         <div v-if="loading" class="text-center py-8">
           <div
             class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"
           ></div>
-          <p class="mt-2 text-gray-600">Loading CPUs...</p>
+          <p class="mt-2 text-neutral-600">Loading CPUs...</p>
         </div>
 
         <div v-else-if="error" class="text-center py-8">
           <p class="text-red-600">{{ error }}</p>
-          <button @click="fetchData" class="mt-2 bg-blue-600 text-white px-4 py-2 rounded">
+          <button @click="fetchData" class="primary-action mt-2 px-4 py-2">
             Retry
           </button>
         </div>
 
         <!-- CPUs Table -->
-        <div v-else class="overflow-x-auto">
-          <table class="w-full table-auto border-collapse">
-            <thead class="bg-gray-100">
+        <div v-else class="surface-panel overflow-x-auto">
+          <table class="data-table table-auto">
+            <thead>
               <tr>
                 <th></th>
                 <th class="text-left px-3 py-2">Name</th>
@@ -168,7 +169,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="cpu in filteredCpus" :key="cpu.id" class="border-b hover:bg-gray-50">
+              <tr v-for="cpu in filteredCpus" :key="cpu.id">
                 <td class="px-2 py-3"><input type="checkbox" /></td>
                 <td class="px-3 py-2">{{ cpu.name }}</td>
                 <td class="px-3 py-2">{{ cpu.brand || 'N/A' }}</td>
@@ -182,12 +183,12 @@
                   <span v-if="cpu.lowest_price" class="text-green-600 font-semibold">
                     Tk. {{ cpu.lowest_price }}
                   </span>
-                  <span v-else class="text-gray-400">No price</span>
+                  <span v-else class="text-neutral-400">No price</span>
                 </td>
                 <td class="px-3 py-2">
                   <button
                     @click="viewDetails(cpu)"
-                    class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+                    class="primary-action px-3 py-1 text-sm"
                   >
                     Details
                   </button>
@@ -198,7 +199,7 @@
 
           <!-- No Results -->
           <div v-if="filteredCpus.length === 0" class="text-center py-8">
-            <p class="text-gray-600">No CPUs found matching your criteria.</p>
+            <p class="text-neutral-600">No CPUs found matching your criteria.</p>
           </div>
         </div>
       </main>

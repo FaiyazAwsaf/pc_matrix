@@ -1,23 +1,25 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-blue-800 py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-md w-full space-y-8">
-      <div class="bg-white/10 backdrop-blur-md rounded-lg shadow-xl p-8 border border-white/20">
-        <h2 class="text-center text-3xl font-extrabold text-white mb-4">Verify Your Email</h2>
-        <p class="text-center text-sm text-white opacity-90 mb-8 leading-relaxed">
+  <div class="auth-shell">
+    <div class="auth-card">
+        <div class="mb-8 text-center">
+          <p class="page-kicker">Email verification</p>
+          <h2 class="page-title">Verify Your Email</h2>
+        </div>
+        <p class="text-center text-sm font-medium text-neutral-600 mb-8 leading-relaxed">
           We've sent a 6-digit verification code to your email address. 
           Please enter it below to verify your account.
         </p>
         
         <form @submit.prevent="handleVerification" class="space-y-6">
           <div>
-            <label for="email" class="block text-sm font-medium text-white mb-2">Email Address</label>
+            <label for="email" class="form-label">Email Address</label>
             <input
               type="email"
               id="email"
               v-model="form.email"
               :class="[ 
-                'w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500',
-                errors.email ? 'border-red-500' : 'border-gray-300'
+                'form-control',
+                errors.email ? 'border-red-500' : ''
               ]"
               placeholder="Enter your email"
               required
@@ -26,14 +28,14 @@
           </div>
 
           <div>
-            <label for="token" class="block text-sm font-medium text-white mb-2">Verification Code</label>
+            <label for="token" class="form-label">Verification Code</label>
             <input
               type="text"
               id="token"
               v-model="form.token"
               :class="[
-                'w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-center text-lg font-semibold tracking-widest',
-                errors.token ? 'border-red-500' : 'border-gray-300'
+                'form-control text-center text-lg font-semibold tracking-widest',
+                errors.token ? 'border-red-500' : ''
               ]"
               placeholder="Enter 6-digit code"
               maxlength="6"
@@ -46,7 +48,7 @@
           <button 
             type="submit" 
             :disabled="loading"
-            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+            class="primary-action w-full px-4 py-3 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {{ loading ? 'Verifying...' : 'Verify Email' }}
           </button>
@@ -63,23 +65,22 @@
           <button 
             @click="resendCode" 
             :disabled="resendLoading || resendCooldown > 0"
-            class="text-sm text-blue-300 hover:text-blue-400 font-medium underline disabled:text-gray-400 disabled:no-underline disabled:cursor-not-allowed"
+            class="text-sm font-bold text-blue-700 underline hover:text-blue-800 disabled:text-neutral-400 disabled:no-underline disabled:cursor-not-allowed"
           >
             {{ resendLoading ? 'Sending...' : resendCooldown > 0 ? `Resend in ${resendCooldown}s` : 'Resend Code' }}
           </button>
         </div>
 
         <div class="mt-6 text-center space-y-2">
-          <p class="text-sm text-white">
+          <p class="text-sm font-medium text-neutral-600">
             Remember your password? 
-            <router-link to="/login" class="text-blue-300 hover:text-blue-400 font-medium">Login</router-link>
+            <router-link to="/login" class="font-bold text-blue-700 hover:text-blue-800">Login</router-link>
           </p>
-          <p class="text-sm text-white">
+          <p class="text-sm font-medium text-neutral-600">
             Need to create an account? 
-            <router-link to="/register" class="text-blue-300 hover:text-blue-400 font-medium">Register</router-link>
+            <router-link to="/register" class="font-bold text-blue-700 hover:text-blue-800">Register</router-link>
           </p>
         </div>
-      </div>
     </div>
   </div>
 </template>

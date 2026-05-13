@@ -1,28 +1,34 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <nav class="bg-white shadow-lg border-b border-gray-200">
+  <nav class="sticky top-0 z-40 border-b border-beige-200 bg-white/90 shadow-sm backdrop-blur-md">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center h-16">
+      <div class="flex justify-between items-center h-18 min-h-18">
         <!-- Logo and Brand -->
         <div class="flex items-center">
-          <router-link to="/" class="flex items-center">
-            <img :src="pcLogo" alt="PC Parser Logo" class="w-35 h-35 object-contain" />
+          <router-link to="/" class="flex items-center gap-3">
+            <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-beige-50 ring-1 ring-beige-200">
+              <img :src="pcLogo" alt="PC Parser Logo" class="h-9 w-9 object-contain" />
+            </span>
+            <span class="hidden sm:block">
+              <span class="block text-base font-extrabold leading-tight text-neutral-900">PC Parser</span>
+              <span class="block text-xs font-semibold text-beige-700">Parts, prices, builds</span>
+            </span>
           </router-link>
         </div>
 
-        <div class="hidden md:flex items-center space-x-8">
+        <div class="hidden md:flex items-center rounded-xl border border-beige-200 bg-beige-50 p-1 shadow-inner">
           <router-link
             to="/"
-            class="text-gray-700 hover:text-blue-600 transition-colors font-medium"
-            :class="{ 'text-blue-600 font-bold': $route.path === '/' }"
+            class="rounded-lg px-4 py-2 text-sm font-bold text-neutral-700 transition-all hover:bg-white hover:text-blue-700"
+            :class="{ 'bg-white text-blue-700 shadow-sm': $route.path === '/' }"
           >
             Home
           </router-link>
 
           <router-link
             to="/about"
-            class="text-gray-700 hover:text-blue-600 transition-colors font-medium"
-            :class="{ 'text-blue-600 font-bold': $route.path === '/about' }"
+            class="rounded-lg px-4 py-2 text-sm font-bold text-neutral-700 transition-all hover:bg-white hover:text-blue-700"
+            :class="{ 'bg-white text-blue-700 shadow-sm': $route.path === '/about' }"
           >
             About
           </router-link>
@@ -30,57 +36,57 @@
           <div ref="componentsDropdown" class="relative">
             <span
               @click="toggleComponentsDropdown"
-              class="cursor-pointer text-gray-700 hover:text-blue-600 transition-colors font-medium select-none"
-              :class="{ 'text-blue-600 font-bold': $route.path.startsWith('/components') }"
+              class="block cursor-pointer select-none rounded-lg px-4 py-2 text-sm font-bold text-neutral-700 transition-all hover:bg-white hover:text-blue-700"
+              :class="{ 'bg-white text-blue-700 shadow-sm': $route.path.startsWith('/components') }"
             >
               Components
             </span>
             <div
               v-show="showComponentsDropdown"
-              class="absolute left-0 mt-2 w-56 bg-white rounded-lg shadow-lg z-50 transition-all duration-300"
+              class="animate-slideInDown absolute left-0 z-50 mt-3 w-64 overflow-hidden rounded-xl border border-beige-200 bg-white shadow-xl"
             >
-              <ul class="divide-y divide-gray-200">
+              <ul class="divide-y divide-beige-100">
                 <li>
-                  <router-link to="/components/monitor" class="block px-4 py-2 hover:bg-gray-100"
+                  <router-link to="/components/monitor" class="block px-4 py-3 text-sm font-semibold text-neutral-700 hover:bg-beige-50 hover:text-blue-700"
                     >Monitor</router-link
                   >
                 </li>
                 <li>
-                  <router-link to="/components/cpu" class="block px-4 py-2 hover:bg-gray-100"
+                  <router-link to="/components/cpu" class="block px-4 py-3 text-sm font-semibold text-neutral-700 hover:bg-beige-50 hover:text-blue-700"
                     >CPUs</router-link
                   >
                 </li>
                 <li>
-                  <router-link to="/components/storage" class="block px-4 py-2 hover:bg-gray-100"
+                  <router-link to="/components/storage" class="block px-4 py-3 text-sm font-semibold text-neutral-700 hover:bg-beige-50 hover:text-blue-700"
                     >Storage</router-link
                   >
                 </li>
                 <li>
                   <router-link
                     to="/components/power-supplies"
-                    class="block px-4 py-2 hover:bg-gray-100"
+                    class="block px-4 py-3 text-sm font-semibold text-neutral-700 hover:bg-beige-50 hover:text-blue-700"
                     >Power Supplies</router-link
                   >
                 </li>
                 <li>
-                  <router-link to="/components/cases" class="block px-4 py-2 hover:bg-gray-100"
+                  <router-link to="/components/cases" class="block px-4 py-3 text-sm font-semibold text-neutral-700 hover:bg-beige-50 hover:text-blue-700"
                     >Cases</router-link
                   >
                 </li>
                 <li>
-                  <router-link to="/components/memory" class="block px-4 py-2 hover:bg-gray-100"
+                  <router-link to="/components/memory" class="block px-4 py-3 text-sm font-semibold text-neutral-700 hover:bg-beige-50 hover:text-blue-700"
                     >Memory</router-link
                   >
                 </li>
                 <li>
                   <router-link
                     to="/components/motherboards"
-                    class="block px-4 py-2 hover:bg-gray-100"
+                    class="block px-4 py-3 text-sm font-semibold text-neutral-700 hover:bg-beige-50 hover:text-blue-700"
                     >Motherboards</router-link
                   >
                 </li>
                 <li>
-                  <router-link to="/components/gpu" class="block px-4 py-2 hover:bg-gray-100"
+                  <router-link to="/components/gpu" class="block px-4 py-3 text-sm font-semibold text-neutral-700 hover:bg-beige-50 hover:text-blue-700"
                     >GPU</router-link
                   >
                 </li>
@@ -90,29 +96,29 @@
 
           <router-link
             to="/builder"
-            class="text-gray-700 hover:text-blue-600 transition-colors font-medium"
-            :class="{ 'text-blue-600 font-bold': $route.path === '/builder' }"
+            class="rounded-lg px-4 py-2 text-sm font-bold text-neutral-700 transition-all hover:bg-white hover:text-blue-700"
+            :class="{ 'bg-white text-blue-700 shadow-sm': $route.path === '/builder' }"
           >
             Builder
           </router-link>
 
           <router-link
             to="/marketplace"
-            class="text-gray-700 hover:text-blue-600 transition-colors font-medium"
-            :class="{ 'text-blue-600 font-bold': $route.path === '/marketplace' }"
+            class="rounded-lg px-4 py-2 text-sm font-bold text-neutral-700 transition-all hover:bg-white hover:text-blue-700"
+            :class="{ 'bg-white text-blue-700 shadow-sm': $route.path === '/marketplace' }"
           >
             Marketplace
           </router-link>
         </div>
 
         <!-- User Section -->
-        <div class="flex items-center space-x-4">
+        <div class="flex items-center space-x-3">
           <!-- Marketplace Cart -->
           <CartDropdown v-if="isLoggedIn && isInMarketplace" />
           
           <!-- Authenticated User -->
           <div v-if="isLoggedIn && user" class="flex items-center space-x-3">
-            <span class="hidden sm:block text-sm text-gray-600">
+            <span class="hidden sm:block text-sm font-semibold text-neutral-600">
               Welcome, {{ user.first_name }}!
             </span>
             <UserAvatar :user="user" @logout="handleLogout" />
@@ -122,13 +128,13 @@
           <div v-else class="flex items-center space-x-3">
             <router-link
               to="/login"
-              class="text-gray-600 hover:text-blue-600 transition-colors font-medium"
+              class="hidden rounded-lg px-3 py-2 text-sm font-bold text-neutral-700 transition-colors hover:bg-beige-50 hover:text-blue-700 sm:block"
             >
               Login
             </router-link>
             <router-link
               to="/register"
-              class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+              class="rounded-lg bg-blue-600 px-4 py-2 text-sm font-bold text-white shadow-sm transition-all hover:bg-blue-700 hover:shadow-md"
             >
               Sign Up
             </router-link>
@@ -137,7 +143,7 @@
           <!-- Mobile Menu Button -->
           <button
             @click="toggleMobileMenu"
-            class="md:hidden p-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-gray-100 transition-colors"
+            class="md:hidden p-2 rounded-lg text-neutral-700 transition-colors hover:bg-beige-100 hover:text-blue-700"
           >
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
@@ -160,45 +166,69 @@
       </div>
 
       <!-- Mobile Menu -->
-      <div v-if="showMobileMenu" class="md:hidden border-t border-gray-200 py-4">
-        <div class="flex flex-col space-y-3">
+      <div v-if="showMobileMenu" class="animate-slideInDown md:hidden border-t border-beige-200 py-4">
+        <div class="flex flex-col space-y-2">
           <router-link
             to="/"
             @click="closeMobileMenu"
-            class="text-gray-600 hover:text-blue-600 transition-colors font-medium px-2 py-1"
-            :class="{ 'text-blue-600': $route.path === '/' }"
+            class="rounded-lg px-4 py-3 font-bold text-neutral-700 transition-colors hover:bg-beige-50 hover:text-blue-700"
+            :class="{ 'bg-blue-50 text-blue-700': $route.path === '/' }"
           >
             Home
           </router-link>
           <router-link
             to="/components"
             @click="closeMobileMenu"
-            class="text-gray-600 hover:text-blue-600 transition-colors font-medium px-2 py-1"
-            :class="{ 'text-blue-600': $route.path.startsWith('/components') }"
+            class="rounded-lg px-4 py-3 font-bold text-neutral-700 transition-colors hover:bg-beige-50 hover:text-blue-700"
+            :class="{ 'bg-blue-50 text-blue-700': $route.path.startsWith('/components') }"
           >
             Components
           </router-link>
+          <router-link
+            to="/builder"
+            @click="closeMobileMenu"
+            class="rounded-lg px-4 py-3 font-bold text-neutral-700 transition-colors hover:bg-beige-50 hover:text-blue-700"
+            :class="{ 'bg-blue-50 text-blue-700': $route.path === '/builder' }"
+          >
+            Builder
+          </router-link>
+          <router-link
+            to="/marketplace"
+            @click="closeMobileMenu"
+            class="rounded-lg px-4 py-3 font-bold text-neutral-700 transition-colors hover:bg-beige-50 hover:text-blue-700"
+            :class="{ 'bg-blue-50 text-blue-700': $route.path === '/marketplace' }"
+          >
+            Marketplace
+          </router-link>
+          <router-link
+            to="/about"
+            @click="closeMobileMenu"
+            class="rounded-lg px-4 py-3 font-bold text-neutral-700 transition-colors hover:bg-beige-50 hover:text-blue-700"
+            :class="{ 'bg-blue-50 text-blue-700': $route.path === '/about' }"
+          >
+            About
+          </router-link>
 
           <!-- Mobile Auth Links -->
-          <div v-if="!isLoggedIn" class="border-t border-gray-200 pt-3 mt-3">
+          <div v-if="!isLoggedIn" class="border-t border-beige-200 pt-3 mt-3">
             <router-link
               to="/login"
               @click="closeMobileMenu"
-              class="block text-gray-600 hover:text-blue-600 transition-colors font-medium px-2 py-1"
+              class="block rounded-lg px-4 py-3 font-bold text-neutral-700 transition-colors hover:bg-beige-50 hover:text-blue-700"
             >
               Login
             </router-link>
             <router-link
               to="/register"
               @click="closeMobileMenu"
-              class="block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium mt-2"
+              class="mt-2 block rounded-lg bg-blue-600 px-4 py-3 text-center font-bold text-white transition-colors hover:bg-blue-700"
             >
               Sign Up
             </router-link>
           </div>
 
           <!-- Mobile User Info -->
-          <div v-else class="border-t border-gray-200 pt-3 mt-3">
+          <div v-else class="border-t border-beige-200 pt-3 mt-3">
             <div class="flex items-center space-x-3 px-2 py-1">
               <div class="w-8 h-8 rounded-full overflow-hidden">
                 <img
@@ -209,23 +239,23 @@
                 />
                 <div
                   v-else
-                  class="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-semibold text-xs"
+                  class="w-full h-full bg-blue-600 flex items-center justify-center text-white font-semibold text-xs"
                 >
                   {{ getInitials() }}
                 </div>
               </div>
               <div>
-                <p class="text-sm font-medium text-gray-900">
+                <p class="text-sm font-medium text-neutral-900">
                   {{ user?.first_name }} {{ user?.last_name }}
                 </p>
-                <p class="text-xs text-gray-500">
+                <p class="text-xs text-neutral-500">
                   {{ user?.email }}
                 </p>
               </div>
             </div>
             <button
               @click="handleLogout"
-              class="block w-full text-left text-red-600 hover:bg-red-50 transition-colors font-medium px-2 py-1 mt-2"
+              class="mt-2 block w-full rounded-lg px-4 py-3 text-left font-bold text-red-600 transition-colors hover:bg-red-50"
             >
               Sign Out
             </button>

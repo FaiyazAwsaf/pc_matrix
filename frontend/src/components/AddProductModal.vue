@@ -1,9 +1,9 @@
 <template>
   <div class="fixed inset-0 flex items-center justify-center z-50" style="background-color: rgba(0, 0, 0, 0.3);" @click="handleOverlayClick">
-    <div class="bg-white rounded-lg w-full max-w-4xl max-h-[90vh] overflow-y-auto m-4" @click.stop>
-      <div class="flex justify-between items-center p-6 border-b border-gray-200">
-        <h2 class="text-2xl font-bold text-gray-800">Add Product</h2>
-        <button @click="$emit('close')" class="text-gray-400 hover:text-gray-600 text-2xl font-bold w-8 h-8 flex items-center justify-center">
+    <div class="surface-panel w-full max-w-4xl max-h-[90vh] overflow-y-auto m-4" @click.stop>
+      <div class="flex justify-between items-center p-6 border-b border-beige-200">
+        <h2 class="text-2xl font-bold text-neutral-800">Add Product</h2>
+        <button @click="$emit('close')" class="text-neutral-400 hover:text-neutral-600 text-2xl font-bold w-8 h-8 flex items-center justify-center">
           &times;
         </button>
       </div>
@@ -11,22 +11,22 @@
       <form @submit.prevent="handleSubmit" class="p-6 space-y-6">
         <!-- Product Name -->
         <div>
-          <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Product Name *</label>
+          <label for="name" class="form-label">Product Name *</label>
           <input
             id="name"
             v-model="form.name"
             type="text"
             required
             placeholder="Enter product name"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            class="form-control"
           />
         </div>
         
         <!-- Category and Condition -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label for="category" class="block text-sm font-medium text-gray-700 mb-2">Category *</label>
-            <select id="category" v-model="form.category" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            <label for="category" class="form-label">Category *</label>
+            <select id="category" v-model="form.category" required class="form-control">
               <option value="">Select Category</option>
               <option value="CPU">CPU</option>
               <option value="RAM">RAM</option>
@@ -38,8 +38,8 @@
           </div>
           
           <div>
-            <label for="condition" class="block text-sm font-medium text-gray-700 mb-2">Condition *</label>
-            <select id="condition" v-model="form.condition" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            <label for="condition" class="form-label">Condition *</label>
+            <select id="condition" v-model="form.condition" required class="form-control">
               <option value="">Select Condition</option>
               <option value="Used-Like New">Used-Like New</option>
               <option value="Used-Good">Used-Good</option>
@@ -51,8 +51,8 @@
         <!-- Age and Warranty -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label for="age" class="block text-sm font-medium text-gray-700 mb-2">Age/Usage *</label>
-            <select id="age" v-model="form.age" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            <label for="age" class="form-label">Age/Usage *</label>
+            <select id="age" v-model="form.age" required class="form-control">
               <option value="">Select Age</option>
               <option value="0-6months">Less than 6 months</option>
               <option value="6-12months">6-12 months</option>
@@ -62,8 +62,8 @@
           </div>
           
           <div>
-            <label for="warranty" class="block text-sm font-medium text-gray-700 mb-2">Warranty *</label>
-            <select id="warranty" v-model="form.warranty" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            <label for="warranty" class="form-label">Warranty *</label>
+            <select id="warranty" v-model="form.warranty" required class="form-control">
               <option value="">Select Warranty</option>
               <option value="under">Under warranty</option>
               <option value="expired">Warranty expired</option>
@@ -75,8 +75,8 @@
         <!-- Brand and Performance Tier -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label for="brand" class="block text-sm font-medium text-gray-700 mb-2">Brand *</label>
-            <select id="brand" v-model="form.brand" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            <label for="brand" class="form-label">Brand *</label>
+            <select id="brand" v-model="form.brand" required class="form-control">
               <option value="">Select Brand</option>
               <option value="intel">Intel</option>
               <option value="amd">AMD</option>
@@ -92,8 +92,8 @@
           </div>
           
           <div>
-            <label for="performance_tier" class="block text-sm font-medium text-gray-700 mb-2">Performance Tier *</label>
-            <select id="performance_tier" v-model="form.performance_tier" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            <label for="performance_tier" class="form-label">Performance Tier *</label>
+            <select id="performance_tier" v-model="form.performance_tier" required class="form-control">
               <option value="">Select Tier</option>
               <option value="entry">Entry level</option>
               <option value="mid">Mid-range</option>
@@ -105,8 +105,8 @@
         <!-- Box & Accessories and Price Type -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label for="box_accessories" class="block text-sm font-medium text-gray-700 mb-2">Box & Accessories *</label>
-            <select id="box_accessories" v-model="form.box_accessories" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            <label for="box_accessories" class="form-label">Box & Accessories *</label>
+            <select id="box_accessories" v-model="form.box_accessories" required class="form-control">
               <option value="">Select Status</option>
               <option value="box">Has original box</option>
               <option value="accessories">Has all accessories</option>
@@ -115,8 +115,8 @@
           </div>
           
           <div>
-            <label for="price_type" class="block text-sm font-medium text-gray-700 mb-2">Price Type *</label>
-            <select id="price_type" v-model="form.price_type" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            <label for="price_type" class="form-label">Price Type *</label>
+            <select id="price_type" v-model="form.price_type" required class="form-control">
               <option value="">Select Type</option>
               <option value="fixed">Fixed price</option>
               <option value="negotiable">Price negotiable</option>
@@ -127,8 +127,8 @@
         <!-- Availability and Compatibility -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label for="availability" class="block text-sm font-medium text-gray-700 mb-2">Availability *</label>
-            <select id="availability" v-model="form.availability" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            <label for="availability" class="form-label">Availability *</label>
+            <select id="availability" v-model="form.availability" required class="form-control">
               <option value="">Select Availability</option>
               <option value="now">Available now</option>
               <option value="soon">Available soon</option>
@@ -136,8 +136,8 @@
           </div>
           
           <div>
-            <label for="compatibility" class="block text-sm font-medium text-gray-700 mb-2">Compatibility</label>
-            <select id="compatibility" v-model="form.compatibility" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            <label for="compatibility" class="form-label">Compatibility</label>
+            <select id="compatibility" v-model="form.compatibility" class="form-control">
               <option value="">Select Compatibility (Optional)</option>
               <option value="lga1700">LGA1700</option>
               <option value="am4">AM4</option>
@@ -153,7 +153,7 @@
         
         <!-- Price -->
         <div>
-          <label for="price" class="block text-sm font-medium text-gray-700 mb-2">Price (৳) *</label>
+          <label for="price" class="form-label">Price (৳) *</label>
           <input
             id="price"
             v-model="form.price"
@@ -162,32 +162,32 @@
             step="0.01"
             required
             placeholder="Enter price in BDT"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            class="form-control"
           />
         </div>
         
         <!-- Description -->
         <div>
-          <label for="description" class="block text-sm font-medium text-gray-700 mb-2">Description *</label>
+          <label for="description" class="form-label">Description *</label>
           <textarea
             id="description"
             v-model="form.description"
             required
             rows="4"
             placeholder="Describe your product..."
-            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-vertical"
+            class="form-control resize-vertical"
           ></textarea>
         </div>
         
         <!-- Image Upload -->
         <div>
-          <label for="image" class="block text-sm font-medium text-gray-700 mb-2">Product Image</label>
+          <label for="image" class="form-label">Product Image</label>
           <input
             id="image"
             type="file"
             accept="image/*"
             @change="handleImageChange"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            class="form-control"
           />
           <div v-if="imagePreview" class="mt-3">
             <img :src="imagePreview" alt="Preview" class="max-w-48 max-h-48 rounded-md object-cover" />
@@ -195,18 +195,18 @@
         </div>
         
         <!-- Form Actions -->
-        <div class="flex justify-end space-x-3 pt-6 border-t border-gray-200">
+        <div class="flex justify-end space-x-3 pt-6 border-t border-beige-200">
           <button 
             type="button" 
             @click="$emit('close')" 
-            class="px-6 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 transition"
+            class="secondary-action px-6 py-2"
           >
             Cancel
           </button>
           <button 
             type="submit" 
             :disabled="loading" 
-            class="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 disabled:bg-gray-400 disabled:cursor-not-allowed transition"
+            class="success-action px-6 py-2 disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {{ loading ? 'Adding...' : 'Add Product' }}
           </button>

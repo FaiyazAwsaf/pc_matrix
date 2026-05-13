@@ -1,15 +1,17 @@
 <template>
-  <div class="container mx-auto px-4 py-8">
-    <div class="mb-8">
+  <div class="page-shell">
+    <div class="page-container">
+    <div class="page-header">
       <div class="flex justify-between items-start">
         <div>
-          <h1 class="text-3xl font-bold text-gray-800 mb-2">PC Parts Marketplace</h1>
-          <p class="text-gray-600">Buy and sell used PC components from the community</p>
+          <p class="page-kicker">Marketplace</p>
+          <h1 class="page-title">PC Parts Marketplace</h1>
+          <p class="page-subtitle">Buy and sell used PC components from the community.</p>
         </div>
         <div v-if="isAuthenticated" class="flex gap-3">
           <router-link 
             to="/chats"
-            class="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition flex items-center gap-2"
+            class="secondary-action px-4 py-2 flex items-center gap-2"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
@@ -18,7 +20,7 @@
           </router-link>
           <button 
             @click="showAddProductModal = true" 
-            class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition flex items-center gap-2"
+            class="success-action px-4 py-2 flex items-center gap-2"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
@@ -30,7 +32,7 @@
     </div>
     
     <!-- Search Bar -->
-    <div class="bg-white rounded-lg shadow-md p-4 mb-6">
+    <div class="surface-panel p-4 mb-6">
       <SearchWithSuggestions
         v-model="searchQuery"
         @search="handleSearch"
@@ -40,7 +42,7 @@
       <!-- Search Tags -->
       <div v-if="searchTags.length > 0" class="mt-4">
         <div class="flex items-center gap-2 mb-2">
-          <span class="text-sm font-medium text-gray-700">Active Filters:</span>
+          <span class="text-sm font-bold text-neutral-700">Active Filters:</span>
           <button 
             @click="clearAllSearchTags"
             class="text-xs text-red-600 hover:text-red-800 underline"
@@ -52,7 +54,7 @@
           <span 
             v-for="(tag, index) in searchTags" 
             :key="index"
-            class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-blue-100 text-blue-800 border border-blue-200"
+            class="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-blue-100 text-blue-800 border border-blue-200"
           >
             {{ tag }}
             <button 
@@ -72,16 +74,16 @@
     <div class="flex gap-6">
       <!-- Left Sidebar Filters -->
       <div class="w-80 flex-shrink-0">
-        <div class="bg-white rounded-lg shadow-md p-4 sticky top-4 max-h-screen overflow-y-auto">
-          <h3 class="text-lg font-semibold text-gray-800 mb-4">Filters</h3>
+        <div class="surface-panel p-4 sticky top-24 max-h-screen overflow-y-auto">
+          <h3 class="text-lg font-extrabold text-neutral-900 mb-4">Filters</h3>
           
           <!-- Category Filter -->
           <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
+            <label class="form-label">Category</label>
             <select 
               v-model="selectedCategory" 
               @change="applyFilters"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+              class="form-control"
             >
               <option value="">All Categories</option>
               <option v-for="category in categories" :key="category" :value="category">
@@ -92,11 +94,11 @@
           
           <!-- Condition Filter -->
           <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Condition</label>
+            <label class="form-label">Condition</label>
             <select 
               v-model="selectedCondition" 
               @change="applyFilters"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+              class="form-control"
             >
               <option value="">All Conditions</option>
               <option v-for="condition in conditions" :key="condition" :value="condition">
@@ -107,11 +109,11 @@
 
           <!-- Age/Usage Duration Filter -->
           <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Age/Usage</label>
+            <label class="form-label">Age/Usage</label>
             <select 
               v-model="selectedAge" 
               @change="applyFilters"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+              class="form-control"
             >
               <option value="">Any Age</option>
               <option value="0-6months">Less than 6 months</option>
@@ -123,11 +125,11 @@
 
           <!-- Distance Filter -->
           <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Distance</label>
+            <label class="form-label">Distance</label>
             <select 
               v-model="selectedDistance" 
               @change="applyFilters"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+              class="form-control"
             >
               <option value="">Anywhere</option>
               <option value="5km">Within 5km</option>
@@ -138,11 +140,11 @@
 
           <!-- Seller Rating Filter -->
           <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Seller Rating</label>
+            <label class="form-label">Seller Rating</label>
             <select 
               v-model="selectedSellerRating" 
               @change="applyFilters"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+              class="form-control"
             >
               <option value="">Any Rating</option>
               <option value="4plus">4+ stars</option>
@@ -153,11 +155,11 @@
 
           <!-- Warranty Status Filter -->
           <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Warranty</label>
+            <label class="form-label">Warranty</label>
             <select 
               v-model="selectedWarranty" 
               @change="applyFilters"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+              class="form-control"
             >
               <option value="">Any Warranty</option>
               <option value="under">Under warranty</option>
@@ -168,11 +170,11 @@
 
           <!-- Box/Accessories Filter -->
           <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Box & Accessories</label>
+            <label class="form-label">Box & Accessories</label>
             <select 
               v-model="selectedBoxAccessories" 
               @change="applyFilters"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+              class="form-control"
             >
               <option value="">Any</option>
               <option value="box">Has original box</option>
@@ -183,11 +185,11 @@
 
           <!-- Price Type Filter -->
           <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Price Type</label>
+            <label class="form-label">Price Type</label>
             <select 
               v-model="selectedPriceType" 
               @change="applyFilters"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+              class="form-control"
             >
               <option value="">Any</option>
               <option value="fixed">Fixed price</option>
@@ -197,11 +199,11 @@
 
           <!-- Availability Filter -->
           <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Availability</label>
+            <label class="form-label">Availability</label>
             <select 
               v-model="selectedAvailability" 
               @change="applyFilters"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+              class="form-control"
             >
               <option value="">Any</option>
               <option value="now">Available now</option>
@@ -211,11 +213,11 @@
 
           <!-- Listing Age Filter -->
           <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Listed</label>
+            <label class="form-label">Listed</label>
             <select 
               v-model="selectedListingAge" 
               @change="applyFilters"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+              class="form-control"
             >
               <option value="">Anytime</option>
               <option value="today">Posted today</option>
@@ -226,11 +228,11 @@
 
           <!-- Brand Filter -->
           <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Brand</label>
+            <label class="form-label">Brand</label>
             <select 
               v-model="selectedBrand" 
               @change="applyFilters"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+              class="form-control"
             >
               <option value="">Any Brand</option>
               <option value="intel">Intel</option>
@@ -248,11 +250,11 @@
 
           <!-- Compatibility Filter -->
           <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Compatibility</label>
+            <label class="form-label">Compatibility</label>
             <select 
               v-model="selectedCompatibility" 
               @change="applyFilters"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+              class="form-control"
             >
               <option value="">Any</option>
               <option value="lga1700">LGA1700</option>
@@ -268,11 +270,11 @@
 
           <!-- Performance Tier Filter -->
           <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Performance Tier</label>
+            <label class="form-label">Performance Tier</label>
             <select 
               v-model="selectedPerformanceTier" 
               @change="applyFilters"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+              class="form-control"
             >
               <option value="">Any Tier</option>
               <option value="entry">Entry level</option>
@@ -283,11 +285,11 @@
           
           <!-- Sort By Filter -->
           <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Sort By</label>
+            <label class="form-label">Sort By</label>
             <select 
               v-model="sortBy" 
               @change="applyFilters"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+              class="form-control"
             >
               <option value="name">Name</option>
               <option value="-created_at">Newest First</option>
@@ -299,7 +301,7 @@
           
           <!-- Price Range Filter -->
           <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Price Range</label>
+            <label class="form-label">Price Range</label>
             <div class="flex flex-col gap-4">
               <Slider
                 v-model="priceRange"
@@ -309,7 +311,7 @@
                 @change="handlePriceRangeChange"
                 @update="handlePriceRangeChange"
               />
-              <div class="flex justify-between text-sm text-gray-600">
+              <div class="flex justify-between text-sm text-neutral-600">
                 <span>৳{{ formatPrice(priceRange[0]) }}</span>
                 <span>৳{{ formatPrice(priceRange[1]) }}</span>
               </div>
@@ -329,8 +331,8 @@
         <!-- Empty State -->
         <div v-else-if="products.length === 0" class="text-center py-12">
           <div class="text-6xl mb-4">📦</div>
-          <p class="text-gray-500 text-lg mb-2">No products found matching your criteria.</p>
-          <p class="text-gray-400 text-sm">Try adjusting your search or filters.</p>
+          <p class="text-neutral-500 text-lg mb-2">No products found matching your criteria.</p>
+          <p class="text-neutral-400 text-sm">Try adjusting your search or filters.</p>
         </div>
         
         <!-- Products Grid - 4 products per row -->
@@ -350,7 +352,7 @@
         <div v-if="hasMore && !loading && products.length > 0" class="mt-8 flex justify-center">
           <button 
             @click="loadMore" 
-            class="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+            class="primary-action px-6 py-3"
           >
             Load More Products
           </button>
@@ -378,6 +380,7 @@
       @close="showRatingModal = false"
       @rating-submitted="handleRatingSubmitted"
     />
+    </div>
   </div>
 </template>
 

@@ -11,13 +11,13 @@
         @blur="handleBlur"
         type="text" 
         placeholder="Search for products, brands, categories..." 
-        class="w-full px-4 py-3 pr-16 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-200 resize-none overflow-hidden"
+        class="form-control pr-16 transition-all duration-200 resize-none overflow-hidden"
         style="height: 48px; min-height: 48px; max-height: 48px;"
       >
       
       <!-- Search Icon -->
       <div class="absolute inset-y-0 right-0 flex items-center pr-3">
-        <svg v-if="!loading" class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg v-if="!loading" class="h-5 w-5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
         </svg>
         <div v-else class="animate-spin h-5 w-5 border-2 border-blue-500 border-t-transparent rounded-full"></div>
@@ -38,10 +38,10 @@
     <!-- Suggestions Dropdown -->
     <div 
       v-if="showSuggestions && (suggestions.length > 0 || searchQuery.length >= 2)"
-      class="absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-md shadow-lg max-h-96 overflow-y-auto"
+      class="surface-panel absolute z-50 w-full mt-1 max-h-96 overflow-y-auto"
     >
       <!-- Loading State -->
-      <div v-if="loading && searchQuery.length >= 2" class="px-4 py-3 text-gray-500 text-center">
+      <div v-if="loading && searchQuery.length >= 2" class="px-4 py-3 text-neutral-500 text-center">
         <div class="flex items-center justify-center">
           <div class="animate-spin h-4 w-4 border-2 border-blue-500 border-t-transparent rounded-full mr-2"></div>
           Searching...
@@ -49,7 +49,7 @@
       </div>
       
       <!-- No Results -->
-      <div v-else-if="!loading && suggestions.length === 0 && searchQuery.length >= 2" class="px-4 py-3 text-gray-500 text-center">
+      <div v-else-if="!loading && suggestions.length === 0 && searchQuery.length >= 2" class="px-4 py-3 text-neutral-500 text-center">
         No suggestions found
       </div>
       
@@ -60,7 +60,7 @@
           :key="index"
           @mousedown="selectSuggestion(suggestion)"
           :class="[
-            'px-4 py-3 cursor-pointer border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition',
+            'px-4 py-3 cursor-pointer border-b border-beige-100 last:border-b-0 hover:bg-beige-50 transition',
             { 'bg-blue-50': index === selectedIndex }
           ]"
         >
@@ -81,8 +81,8 @@
               
               <!-- Suggestion Text -->
               <div>
-                <div class="font-medium text-gray-900">{{ suggestion.text }}</div>
-                <div v-if="suggestion.category || suggestion.brand" class="text-xs text-gray-500">
+                <div class="font-bold text-neutral-900">{{ suggestion.text }}</div>
+                <div v-if="suggestion.category || suggestion.brand" class="text-xs text-neutral-500">
                   <span v-if="suggestion.category">{{ suggestion.category }}</span>
                   <span v-if="suggestion.category && suggestion.brand"> • </span>
                   <span v-if="suggestion.brand">{{ suggestion.brand }}</span>
@@ -106,7 +106,7 @@
         <div 
           v-if="searchQuery.length >= 2"
           @mousedown="executeSearch"
-          class="px-4 py-3 cursor-pointer border-t border-gray-200 bg-gray-50 hover:bg-gray-100 transition"
+          class="px-4 py-3 cursor-pointer border-t border-beige-200 bg-beige-50 hover:bg-beige-100 transition"
         >
           <div class="flex items-center text-blue-600 font-medium">
             <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

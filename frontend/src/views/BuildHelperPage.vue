@@ -1,25 +1,28 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-slate-900 to-blue-800 text-white flex flex-col">
-    <main class="flex-1 flex items-center justify-center px-4 py-16">
-      <div class="bg-white text-slate-900 w-full max-w-4xl rounded-3xl shadow-lg p-6 sm:p-10">
-        <h1 class="text-2xl sm:text-3xl font-extrabold text-center mb-4">Build Your PC with AI</h1>
-        <p class="text-center text-gray-500 mb-6">
-          Ask anything about building your PC your AI assistant is ready!
-        </p>
+  <div class="page-shell">
+    <main class="page-container max-w-5xl">
+      <div class="surface-panel p-6 sm:p-8">
+        <div class="mb-6 text-center">
+          <p class="page-kicker">Build assistant</p>
+          <h1 class="page-title">Build Your PC with AI</h1>
+          <p class="page-subtitle">
+            Ask about budgets, compatibility, upgrades, and part tradeoffs.
+          </p>
+        </div>
 
         <!-- Chat Box -->
         <div
-          class="border border-gray-300 rounded-lg p-4 h-[400px] overflow-y-auto mb-4 bg-gray-50"
+          class="mb-4 h-[400px] overflow-y-auto rounded-xl border border-beige-200 bg-beige-50 p-4"
         >
           <div v-for="(msg, idx) in messages" :key="idx" class="mb-2">
             <div v-if="msg.type === 'user'" class="text-right">
-              <span class="inline-block bg-blue-500 text-white px-3 py-2 rounded-lg max-w-xs">
+              <span class="inline-block max-w-xs rounded-xl bg-blue-600 px-3 py-2 text-white shadow-sm">
                 {{ msg.text }}
               </span>
             </div>
             <div v-else class="text-left">
               <span
-                class="inline-block bg-gray-200 text-gray-800 px-3 py-2 rounded-lg max-w-xs whitespace-pre-wrap"
+                class="inline-block max-w-xs whitespace-pre-wrap rounded-xl border border-beige-200 bg-white px-3 py-2 text-neutral-800 shadow-sm"
               >
                 {{ msg.text }}
               </span>
@@ -28,7 +31,7 @@
 
           <!-- Loading indicator -->
           <div v-if="isLoading" class="text-left">
-            <span class="inline-block bg-gray-200 text-gray-800 px-3 py-2 rounded-lg">
+            <span class="inline-block rounded-xl border border-beige-200 bg-white px-3 py-2 text-neutral-800 shadow-sm">
               Thinking...
             </span>
           </div>
@@ -40,12 +43,12 @@
             v-model="userInput"
             type="text"
             placeholder="Ask your build assistant..."
-            class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            class="form-control flex-1"
             :disabled="isLoading"
           />
           <button
             type="submit"
-            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
+            class="primary-action px-5 py-2 disabled:opacity-50"
             :disabled="isLoading"
           >
             Send
@@ -54,13 +57,13 @@
 
         <!-- Prompt Suggestions -->
         <div class="mt-6">
-          <p class="text-sm text-gray-600 font-semibold mb-2">Suggestions:</p>
+          <p class="mb-2 text-sm font-bold text-neutral-700">Suggestions:</p>
           <div class="flex flex-wrap gap-2">
             <button
               v-for="s in suggestions"
               :key="s"
               @click="userInput = s"
-              class="px-3 py-1 rounded-full border text-sm hover:bg-blue-100"
+              class="secondary-action px-3 py-1 text-sm"
               :disabled="isLoading"
             >
               {{ s }}

@@ -2,7 +2,7 @@
   <div class="relative">
     <button
       @click="toggleCart"
-      class="relative p-2 text-gray-600 hover:text-blue-600 transition-colors"
+      class="relative p-2 text-neutral-600 hover:text-blue-600 transition-colors"
     >
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5 6m0 0h9M17 13v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6"></path>
@@ -17,14 +17,14 @@
 
     <div
       v-if="isCartOpen"
-      class="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg z-50 border border-gray-200"
+      class="absolute right-0 mt-2 w-80 surface-panel shadow-lg z-50 border border-beige-200"
     >
       <div class="p-4">
         <div class="flex justify-between items-center mb-4">
-          <h3 class="text-lg font-semibold text-gray-800">Shopping Cart</h3>
+          <h3 class="text-lg font-semibold text-neutral-800">Shopping Cart</h3>
           <button
             @click="closeCart"
-            class="text-gray-400 hover:text-gray-600"
+            class="text-neutral-400 hover:text-neutral-600"
           >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -34,7 +34,7 @@
 
         <div v-if="cartItems.length === 0" class="text-center py-8">
           <div class="text-4xl mb-2">🛒</div>
-          <p class="text-gray-500">Your cart is empty</p>
+          <p class="text-neutral-500">Your cart is empty</p>
         </div>
 
         <div v-else>
@@ -42,7 +42,7 @@
             <div
               v-for="item in cartItems"
               :key="item.id"
-              class="flex items-center space-x-3 py-3 border-b border-gray-100 last:border-b-0"
+              class="flex items-center space-x-3 py-3 border-b border-beige-100 last:border-b-0"
             >
               <img
                 :src="item.image || '/placeholder-product.jpg'"
@@ -50,20 +50,20 @@
                 class="w-12 h-12 object-cover rounded"
               />
               <div class="flex-1 min-w-0">
-                <h4 class="text-sm font-medium text-gray-900 truncate">{{ item.name }}</h4>
-                <p class="text-sm text-gray-500">৳{{ formatPrice(item.price) }}</p>
+                <h4 class="text-sm font-medium text-neutral-900 truncate">{{ item.name }}</h4>
+                <p class="text-sm text-neutral-500">৳{{ formatPrice(item.price) }}</p>
               </div>
               <div class="flex items-center space-x-2">
                 <button
                   @click="updateQuantity(item.id, item.quantity - 1)"
-                  class="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 hover:bg-gray-300"
+                  class="w-6 h-6 rounded-full bg-beige-200 flex items-center justify-center text-neutral-600 hover:bg-beige-300"
                 >
                   -
                 </button>
                 <span class="text-sm font-medium w-8 text-center">{{ item.quantity }}</span>
                 <button
                   @click="updateQuantity(item.id, item.quantity + 1)"
-                  class="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 hover:bg-gray-300"
+                  class="w-6 h-6 rounded-full bg-beige-200 flex items-center justify-center text-neutral-600 hover:bg-beige-300"
                 >
                   +
                 </button>
@@ -79,21 +79,21 @@
             </div>
           </div>
 
-          <div class="mt-4 pt-4 border-t border-gray-200">
+          <div class="mt-4 pt-4 border-t border-beige-200">
             <div class="flex justify-between items-center mb-4">
-              <span class="text-lg font-semibold text-gray-900">Total:</span>
+              <span class="text-lg font-semibold text-neutral-900">Total:</span>
               <span class="text-lg font-bold text-blue-600">৳{{ formatPrice(cartTotal) }}</span>
             </div>
             <div class="space-y-2">
               <button
                 @click="proceedToCheckout"
-                class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition"
+                class="primary-action w-full px-4 py-2"
               >
                 Proceed to Checkout
               </button>
               <button
                 @click="clearCart"
-                class="w-full bg-gray-200 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-300 transition"
+                class="secondary-action w-full px-4 py-2"
               >
                 Clear Cart
               </button>

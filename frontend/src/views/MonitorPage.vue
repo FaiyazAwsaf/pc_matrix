@@ -1,21 +1,22 @@
 <template>
-  <div class="min-h-screen bg-white">
-    <!-- Gradient Header -->
-    <div class="bg-gradient-to-br from-slate-900 to-blue-800 text-white py-10 text-center">
-      <h1 class="text-3xl md:text-4xl font-extrabold">Choose A Monitor</h1>
+  <div class="page-shell">
+    <div class="hero-band py-10 text-center">
+      <p class="page-kicker">Components</p>
+      <h1 class="page-title">Choose A Monitor</h1>
+      <p class="page-subtitle">Compare display size, refresh rate, panel type, and price.</p>
     </div>
 
-    <div class="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-4 gap-10">
+    <div class="page-container grid grid-cols-1 md:grid-cols-4 gap-8">
       <!-- Filters -->
-      <aside class="space-y-6">
+      <aside class="surface-panel p-5 space-y-6">
         <div>
-          <h2 class="font-semibold mb-2">PRICE</h2>
+          <h2 class="form-label">PRICE</h2>
           <input type="range" min="50" max="3000" v-model="filters.price" class="w-full" />
           <p class="text-sm">Up to ${{ filters.price }}</p>
         </div>
 
         <div>
-          <h2 class="font-semibold mb-2">MANUFACTURER</h2>
+          <h2 class="form-label">MANUFACTURER</h2>
           <div class="space-y-1">
             <div v-for="brand in brandOptions" :key="brand">
               <input type="checkbox" :id="brand" v-model="filters.manufacturer" :value="brand" />
@@ -25,7 +26,7 @@
         </div>
 
         <div>
-          <h2 class="font-semibold mb-2">RATING</h2>
+          <h2 class="form-label">RATING</h2>
           <div class="space-y-1">
             <div v-for="star in [5,4,3,2,1]" :key="star">
               <input type="checkbox" :id="'star-' + star" v-model="filters.rating" :value="star" />
@@ -35,8 +36,8 @@
         </div>
 
         <div>
-          <h2 class="font-semibold mb-2">PANEL TYPE</h2>
-          <select v-model="filters.panelType" class="w-full p-2 border rounded">
+          <h2 class="form-label">PANEL TYPE</h2>
+          <select v-model="filters.panelType" class="form-control">
             <option value="">All</option>
             <option value="IPS">IPS</option>
             <option value="TN">TN</option>
@@ -45,7 +46,7 @@
         </div>
 
         <div>
-          <h2 class="font-semibold mb-2">REFRESH RATE</h2>
+          <h2 class="form-label">REFRESH RATE</h2>
           <input type="range" min="60" max="240" v-model="filters.refreshRate" class="w-full" />
           <p class="text-sm">{{ filters.refreshRate }} Hz</p>
         </div>
@@ -58,13 +59,14 @@
             v-model="searchQuery"
             type="text"
             placeholder="Search Monitor"
-            class="border p-2 rounded w-full max-w-md"
+            class="form-control w-full max-w-md"
           />
-          <button class="ml-4 px-4 py-2 bg-blue-600 text-white rounded">Add From Selection</button>
+          <button class="primary-action ml-4 px-4 py-2">Add From Selection</button>
         </div>
 
-        <table class="min-w-full border border-gray-300 text-sm">
-          <thead class="bg-gray-100">
+        <div class="surface-panel overflow-hidden">
+        <table class="data-table min-w-full text-sm">
+          <thead>
             <tr>
               <th class="px-4 py-2 text-left">NAME</th>
               <th class="px-4 py-2 text-left">SCREEN SIZE</th>
@@ -79,7 +81,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="monitor in filteredMonitors" :key="monitor.name" class="border-t">
+            <tr v-for="monitor in filteredMonitors" :key="monitor.name">
               <td class="px-4 py-2">{{ monitor.name }}</td>
               <td class="px-4 py-2">{{ monitor.screenSize }}"</td>
               <td class="px-4 py-2">{{ monitor.resolution }}</td>
@@ -90,11 +92,12 @@
               <td class="px-4 py-2">{{ monitor.rating }} ⭐</td>
               <td class="px-4 py-2">${{ monitor.price }}</td>
               <td class="px-4 py-2">
-                <button class="bg-blue-600 text-white px-3 py-1 rounded">Add</button>
+                <button class="primary-action px-3 py-1 text-sm">Add</button>
               </td>
             </tr>
           </tbody>
         </table>
+        </div>
       </section>
     </div>
   </div>
