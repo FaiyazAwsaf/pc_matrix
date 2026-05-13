@@ -87,8 +87,16 @@ WSGI_APPLICATION = "core.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+import dj_database_url
+
 DATABASES = {
-    "default": {
+    "default": dj_database_url.config(
+        default=os.getenv("DATABASE_URL", "postgresql://postgres:password@localhost:5432/pc_parser_db"),
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
+    if os.getenv("DATABASE_URL")
+    else {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": os.getenv("DB_NAME", "pc_parser_db"),
         "USER": os.getenv("DB_USER", "postgres"),

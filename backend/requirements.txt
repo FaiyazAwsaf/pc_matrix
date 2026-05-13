@@ -11,3 +11,4 @@ beautifulsoup4
 rapidfuzz
 pandas
 groq
+dj-database-url
