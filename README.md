@@ -32,3 +32,5 @@
 - **AI Support:** From part picking to troubleshooting, the AI chat assistant helps everyone build better PCs, faster
 
 ---
+
+<!-- ui-sync -->
